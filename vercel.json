@@ -1,59 +1,16 @@
 {
   "version": 2,
+  "framework": null,
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/auth/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/requests/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/public/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/officials/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/docs",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/redoc",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/openapi.json",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/(.*\\.(js|css|svg|png|ico|json|woff|woff2|ttf|eot|map|webp|geojson))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "env": {
-    "PYTHONPATH": "/var/task"
-  }
+  "rewrites": [
+    { "source": "/api/:path*",        "destination": "/api/index" },
+    { "source": "/auth/:path*",       "destination": "/api/index" },
+    { "source": "/requests/:path*",   "destination": "/api/index" },
+    { "source": "/public/:path*",     "destination": "/api/index" },
+    { "source": "/officials/:path*",  "destination": "/api/index" },
+    { "source": "/docs",              "destination": "/api/index" },
+    { "source": "/redoc",             "destination": "/api/index" },
+    { "source": "/openapi.json",      "destination": "/api/index" }
+  ]
 }
