@@ -1,7 +1,23 @@
 import React from 'react';
 
-export default function Footer({ onOpenReport, onSwitchFeed }) {
+export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
   const year = new Date().getFullYear();
+
+  const handleReportClick = () => {
+    if (setCurrentTab) setCurrentTab('studio');
+    if (onOpenReport) onOpenReport();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      const el = document.getElementById('report-section') || document.getElementById('complaint-form-card');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  };
+
+  const handleFeedClick = () => {
+    if (setCurrentTab) setCurrentTab('feed');
+    if (onSwitchFeed) onSwitchFeed();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer style={{
@@ -48,10 +64,8 @@ export default function Footer({ onOpenReport, onSwitchFeed }) {
           </div>
           <button
             type="button"
-            onClick={() => {
-              document.getElementById('report-section')?.scrollIntoView({ behavior: 'smooth' });
-              if (onOpenReport) onOpenReport();
-            }}
+            id="footer-link-report"
+            onClick={handleReportClick}
             style={{
               background: 'none', border: 'none', padding: 0, cursor: 'pointer',
               fontSize: '12.5px', color: 'var(--navy-soft)', textAlign: 'left',
@@ -64,9 +78,8 @@ export default function Footer({ onOpenReport, onSwitchFeed }) {
           </button>
           <button
             type="button"
-            onClick={() => {
-              if (onSwitchFeed) onSwitchFeed();
-            }}
+            id="footer-link-feed"
+            onClick={handleFeedClick}
             style={{
               background: 'none', border: 'none', padding: 0, cursor: 'pointer',
               fontSize: '12.5px', color: 'var(--navy-soft)', textAlign: 'left',

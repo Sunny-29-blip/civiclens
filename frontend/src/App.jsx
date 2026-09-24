@@ -137,6 +137,7 @@ export default function App() {
 
       {/* Footer */}
       <Footer
+        setCurrentTab={setCurrentTab}
         onOpenReport={() => setCurrentTab('studio')}
         onSwitchFeed={() => setCurrentTab('feed')}
       />

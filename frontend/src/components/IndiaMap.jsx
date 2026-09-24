@@ -124,6 +124,78 @@ function DistrictStatCard({ regions }) {
   );
 }
 
+/* ─── GeoJSON Feature Validation & Defensive Handling ────────────────────── */
+function validateGeoFeature(geo) {
+  if (!geo || typeof geo !== 'object') {
+    return { valid: false, reason: 'Feature is not an object' };
+  }
+  const geom = geo.geometry;
+  if (!geom || typeof geom !== 'object') {
+    return { valid: false, reason: 'Missing or invalid geometry object' };
+  }
+  const { type, coordinates } = geom;
+  if (!coordinates || !Array.isArray(coordinates) || coordinates.length === 0) {
+    return { valid: false, reason: 'Empty or missing coordinates array' };
+  }
+
+  const checkRing = (ring, ringPath) => {
+    if (!Array.isArray(ring)) return `${ringPath} is not an array`;
+    if (ring.length < 4) return `${ringPath} has ${ring.length} points (minimum 4 required for a closed polygon)`;
+    for (let i = 0; i < ring.length; i++) {
+      const pt = ring[i];
+      if (!Array.isArray(pt) || pt.length < 2 || typeof pt[0] !== 'number' || typeof pt[1] !== 'number' || isNaN(pt[0]) || isNaN(pt[1])) {
+        return `${ringPath} point [${i}] is not a valid coordinate pair: ${JSON.stringify(pt)}`;
+      }
+    }
+    const first = ring[0];
+    const last = ring[ring.length - 1];
+    if (first[0] !== last[0] || first[1] !== last[1]) {
+      return `${ringPath} is not closed (start [${first}] != end [${last}])`;
+    }
+    return null;
+  };
+
+  if (type === 'Polygon') {
+    for (let r = 0; r < coordinates.length; r++) {
+      const err = checkRing(coordinates[r], `Polygon ring ${r}`);
+      if (err) return { valid: false, reason: err };
+    }
+  } else if (type === 'MultiPolygon') {
+    for (let p = 0; p < coordinates.length; p++) {
+      const poly = coordinates[p];
+      if (!Array.isArray(poly) || poly.length === 0) {
+        return { valid: false, reason: `MultiPolygon polygon ${p} is empty or not an array` };
+      }
+      for (let r = 0; r < poly.length; r++) {
+        const err = checkRing(poly[r], `MultiPolygon [${p}][${r}]`);
+        if (err) return { valid: false, reason: err };
+      }
+    }
+  } else {
+    return { valid: false, reason: `Unsupported geometry type: ${type}` };
+  }
+
+  return { valid: true };
+}
+
+/* ─── Per-feature Error Boundary ─────────────────────────────────────────── */
+class FeatureErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(err) {
+    console.warn(`[IndiaMap] Rendering error on feature "${this.props.featureName}":`, err?.message || err);
+  }
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
+
 /* ─── Choropleth map panel ────────────────────────────────────────────────── */
 function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0, content: null });
@@ -132,6 +204,26 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
   const handleMouseMove = useCallback((e) => {
     setTooltip(prev => ({ ...prev, x: e.clientX, y: e.clientY }));
   }, []);
+
+  // Filter out any corrupted or malformed features defensively
+  const safeGeoData = React.useMemo(() => {
+    if (!geoData || !Array.isArray(geoData.features)) return geoData;
+    const validFeatures = [];
+    for (let i = 0; i < geoData.features.length; i++) {
+      const feat = geoData.features[i];
+      const result = validateGeoFeature(feat);
+      if (result.valid) {
+        validFeatures.push(feat);
+      } else {
+        const featName = feat?.properties?.NAME_2 || feat?.properties?.NAME_1 || feat?.properties?.st_nm || feat?.properties?.district || `Feature_${i}`;
+        console.warn(`[IndiaMap] Skipping malformed feature "${featName}" at index ${i}: ${result.reason}`);
+      }
+    }
+    return {
+      ...geoData,
+      features: validFeatures
+    };
+  }, [geoData]);
 
   const STATE_CENTERS = {
     'uttar pradesh': [81.0, 27.0], 'maharashtra': [75.7, 19.7], 'rajasthan': [74.2, 27.0],
@@ -150,7 +242,7 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
     : { scale: 3400, center: stateCenter };
 
   return (
-    // Part A fix: explicit height on the container so SVG doesn't collapse
+    // Explicit height on the container so SVG doesn't collapse
     <div
       style={{ width: '100%', height: '420px', position: 'relative', userSelect: 'none' }}
       onMouseMove={handleMouseMove}
@@ -163,7 +255,7 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
         height={420}
       >
         <ZoomableGroup>
-          <Geographies geography={geoData}>
+          <Geographies geography={safeGeoData}>
             {({ geographies }) => {
               if (!geographies || !Array.isArray(geographies) || geographies.length === 0) {
                 return null;
@@ -181,40 +273,46 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
                 const rawName = isNational
                   ? (geo.properties?.NAME_1 || 'Unknown')
                   : (geo.properties?.NAME_2 || geo.properties?.NAME_1 || 'Unknown');
+
+                const check = validateGeoFeature(geo);
+                if (!check.valid) {
+                  console.warn(`[IndiaMap] Skipping malformed visible feature "${rawName}": ${check.reason}`);
+                  return null;
+                }
+
                 const regionData = matchRegion(rawName, dataMap, isNational ? STATE_ALIASES : DISTRICT_ALIASES);
                 const count = regionData?.complaint_count ?? 0;
                 const avgPs = regionData?.avg_priority_score ?? '—';
 
                 const isHovered = hoveredKey === geo.rsmKey;
-
-                // Part B: hover fill is --sky (#bfe0ff), distinct from the data-driven fill
                 const baseFill = count > 0 ? regionColor(count, maxCount) : NO_DATA_COLOR;
                 const fill = isHovered ? SKY_HOVER : baseFill;
 
                 return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={fill}
-                    stroke="#ffffff"
-                    strokeWidth={isHovered ? 1.5 : 0.5}
-                    style={{
-                      default:  { outline: 'none', transition: 'fill 0.12s ease' },
-                      hover:    { outline: 'none', cursor: 'pointer' },
-                      pressed:  { outline: 'none' }
-                    }}
-                    onMouseEnter={() => {
-                      setHoveredKey(geo.rsmKey);
-                      const label = count > 0
-                        ? `${rawName}: ${count} complaint${count !== 1 ? 's' : ''} · Avg priority: ${avgPs}/100`
-                        : `${rawName}: No data`;
-                      setTooltip(prev => ({ ...prev, content: label }));
-                    }}
-                    onMouseLeave={() => {
-                      setHoveredKey(null);
-                      setTooltip(prev => ({ ...prev, content: null }));
-                    }}
-                  />
+                  <FeatureErrorBoundary key={geo.rsmKey || rawName} featureName={rawName}>
+                    <Geography
+                      geography={geo}
+                      fill={fill}
+                      stroke="#ffffff"
+                      strokeWidth={isHovered ? 1.5 : 0.5}
+                      style={{
+                        default:  { outline: 'none', transition: 'fill 0.12s ease' },
+                        hover:    { outline: 'none', cursor: 'pointer' },
+                        pressed:  { outline: 'none' }
+                      }}
+                      onMouseEnter={() => {
+                        setHoveredKey(geo.rsmKey);
+                        const label = count > 0
+                          ? `${rawName}: ${count} complaint${count !== 1 ? 's' : ''} · Avg priority: ${avgPs}/100`
+                          : `${rawName}: No data`;
+                        setTooltip(prev => ({ ...prev, content: label }));
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredKey(null);
+                        setTooltip(prev => ({ ...prev, content: null }));
+                      }}
+                    />
+                  </FeatureErrorBoundary>
                 );
               });
             }}

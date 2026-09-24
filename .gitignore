@@ -32,3 +32,5 @@ __pycache__/
 
 # Local DB data
 backend/data/civiclens_db.json
+.vercel
+scratch/
