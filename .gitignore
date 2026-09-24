@@ -4,6 +4,11 @@
 .env.*.local
 .env.*
 *.env
+# Allow safe public-key env files for Vercel deployment
+!.env.production
+!.env.example
+!frontend/.env.production
+!frontend/.env.example
 backend/credentials/
 credentials/
 *credentials*.json
