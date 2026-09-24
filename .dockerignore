@@ -1,0 +1,15 @@
+node_modules
+.git
+.gitignore
+__pycache__
+*.pyc
+.pytest_cache
+.env
+*credentials*.json
+*service-account*.json
+*firebase*.json
+*.key.json
+.DS_Store
+dist
+data/civiclens_db.json
+

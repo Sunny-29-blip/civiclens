@@ -1,0 +1,18 @@
+# Backend Secrets & Environments
+.env
+.env.*
+.env.local
+*.env
+credentials/
+*credentials*.json
+*service-account*.json
+*firebase*.json
+*.key.json
+
+# Python & Cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local DB Data
+data/civiclens_db.json

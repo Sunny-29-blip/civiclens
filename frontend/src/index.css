@@ -1,0 +1,70 @@
+:root {
+  --white: #ffffff;
+  --ice: #eef5fd;
+  --sky: #d7e9fb;
+  --blue: #1656e0;
+  --blue-deep: #0a2e86;
+  --cyan: #3fc7ff;
+  --navy: #081a3a;
+  --navy-soft: #5c7290;
+  --line: #dbe6f4;
+  
+  /* Status Colors */
+  --emerald: #10b981;
+  --emerald-bg: #ecfdf5;
+  --amber: #f59e0b;
+  --amber-bg: #fffbeb;
+  --rose: #ef4444;
+  --rose-bg: #fef2f2;
+
+  --shadow-sm: 0 2px 8px rgba(8, 26, 58, 0.04);
+  --shadow-md: 0 12px 28px -10px rgba(8, 26, 58, 0.08);
+  --shadow-lg: 0 20px 45px -15px rgba(22, 86, 224, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-full: 100px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--white);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  color: var(--navy);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .display-font {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::selection {
+  background: var(--sky);
+  color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

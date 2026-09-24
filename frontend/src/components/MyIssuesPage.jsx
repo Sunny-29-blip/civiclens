@@ -1,0 +1,156 @@
+import React, { useState, useEffect } from 'react';
+import { CheckCircle2, ClipboardList } from 'lucide-react';
+import { api } from '../services/api';
+
+/* ─── My Reported Issues Page ────────────────────────────────────────────── */
+export default function MyIssuesPage({ session, onOpenReport }) {
+  const [myIssues, setMyIssues] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.role !== 'citizen' || !session?.profile?.user_id) return;
+    setLoading(true);
+    api.getMyIssues(session.profile.user_id)
+      .then(setMyIssues)
+      .catch(() => setMyIssues([]))
+      .finally(() => setLoading(false));
+  }, [session]);
+
+  const STATUS_STYLES = {
+    pending:     { bg: 'var(--ice)',        color: 'var(--navy)',  label: 'Pending' },
+    in_progress: { bg: 'var(--amber-bg)',   color: '#b45309',     label: 'In Progress' },
+    resolved:    { bg: 'var(--emerald-bg)', color: '#047857',     label: 'Resolved' }
+  };
+  const LEVEL_LABELS = {
+    local:    { text: 'Local Office',    bg: '#f0fdf4', color: '#166534' },
+    district: { text: 'District Level', bg: '#eff6ff', color: '#1e40af' },
+    state:    { text: 'State Level',    bg: '#faf5ff', color: '#6b21a8' },
+    national: { text: 'National Level', bg: '#fff7ed', color: '#9a3412' }
+  };
+
+  const getEstDate = (issue) => {
+    const d = new Date(((issue.timestamp || 0) + (issue.expected_resolution_days || 14) * 86400) * 1000);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+  const getDaysLeft = (issue) => {
+    const resolveAt = ((issue.timestamp || 0) + (issue.expected_resolution_days || 14) * 86400) * 1000;
+    return Math.ceil((resolveAt - Date.now()) / 86400000);
+  };
+
+  return (
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px 64px' }}>
+      {/* Page header */}
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+          <ClipboardList size={22} color="var(--blue)" />
+          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--navy)', margin: 0 }}>
+            My Reported Issues
+          </h1>
+        </div>
+        <p style={{ color: 'var(--navy-soft)', fontSize: '14px', margin: 0 }}>
+          Track the status, handling tier, and estimated resolution of grievances you have submitted.
+        </p>
+      </div>
+
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '48px', color: 'var(--navy-soft)', fontSize: '13px' }}>
+          Loading your issues…
+        </div>
+      ) : myIssues.length === 0 ? (
+        <div style={{
+          maxWidth: '480px', margin: '0 auto', textAlign: 'center', padding: '56px 24px',
+          background: 'var(--ice)', border: '1px dashed var(--sky)', borderRadius: 'var(--radius-md)'
+        }}>
+          <CheckCircle2 size={40} color="var(--sky)" style={{ margin: '0 auto 14px', display: 'block' }} />
+          <h3 style={{ fontSize: '16px', color: 'var(--navy)', margin: '0 0 8px' }}>No grievances yet</h3>
+          <p style={{ fontSize: '13.5px', color: 'var(--navy-soft)', margin: '0 0 20px' }}>
+            You haven&apos;t submitted any grievances yet.
+          </p>
+          {onOpenReport && (
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={onOpenReport}
+              style={{ margin: '0 auto', justifyContent: 'center' }}
+            >
+              Report an Issue
+            </button>
+          )}
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {myIssues.map((issue) => {
+            const st = STATUS_STYLES[issue.status] || STATUS_STYLES.pending;
+            const lv = LEVEL_LABELS[issue.current_level] || LEVEL_LABELS.district;
+            const daysLeft = getDaysLeft(issue);
+            const isResolved = issue.status === 'resolved';
+            return (
+              <div key={issue.id} style={{
+                background: 'var(--white)', border: '1px solid var(--line)',
+                borderRadius: 'var(--radius-md)', padding: '18px 22px',
+                display: 'flex', flexDirection: 'column', gap: '12px',
+                boxShadow: 'var(--shadow-sm)'
+              }}>
+                {/* Row 1: summary + status badge */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 600, fontSize: '14.5px', color: 'var(--navy)', lineHeight: 1.4 }}>
+                      {issue.summary || issue.raw_text}
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--navy-soft)', marginTop: '4px' }}>
+                      {issue.locality || issue.location}
+                      {' · '}
+                      {issue.timestamp
+                        ? new Date(issue.timestamp * 1000).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                        : '—'}
+                    </div>
+                  </div>
+                  <span style={{
+                    fontSize: '11.5px', fontWeight: 700, padding: '4px 12px', whiteSpace: 'nowrap',
+                    borderRadius: 'var(--radius-full)', background: st.bg, color: st.color
+                  }}>{st.label}</span>
+                </div>
+
+                {/* Row 2: category chips + tier badge + resolution */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  {(issue.categories || []).slice(0, 2).map((cat, i) => (
+                    <span key={i} style={{
+                      fontSize: '11px', fontWeight: 600, padding: '2px 9px',
+                      borderRadius: 'var(--radius-full)',
+                      background: 'rgba(22,86,224,0.07)', color: 'var(--blue)',
+                      border: '1px solid rgba(22,86,224,0.18)', textTransform: 'capitalize'
+                    }}>{cat.replace(/_/g, ' ')}</span>
+                  ))}
+                  <span style={{
+                    fontSize: '11px', fontWeight: 600, padding: '2px 10px',
+                    borderRadius: 'var(--radius-full)', background: lv.bg, color: lv.color
+                  }}>⚙ {lv.text}</span>
+
+                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: 'var(--navy-soft)' }}>
+                    {isResolved ? (
+                      <span style={{ color: '#047857', fontWeight: 600 }}>✓ Resolved</span>
+                    ) : (
+                      <span>
+                        <span
+                          title="Heuristic estimate based on urgency — not a guarantee"
+                          style={{ cursor: 'help', borderBottom: '1px dotted var(--navy-soft)' }}
+                        >Est. resolution</span>
+                        {' '}by {getEstDate(issue)}
+                        {daysLeft > 0 ? ` (~${daysLeft}d remaining)` : ' (overdue)'}
+                        <span style={{
+                          marginLeft: '6px', fontSize: '10px', color: 'var(--navy-soft)',
+                          background: 'var(--ice)', border: '1px solid var(--line)',
+                          borderRadius: '4px', padding: '1px 5px', verticalAlign: 'middle'
+                        }}>estimated</span>
+                      </span>
+                    )}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}

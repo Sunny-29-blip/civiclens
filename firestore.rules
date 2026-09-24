@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Complaints collection:
+    // - Publicly readable by all citizens and applications.
+    // - Direct client writes are blocked (must go through authenticated CivicLens backend service account).
+    // - Direct client support increments only allowed by +1 step when updating support_count.
+    match /complaints/{complaintId} {
+      allow read: if true;
+      allow create: if false; // Only backend service account can create new AI-analyzed complaints
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['support_count', 'high_priority'])
+                    && request.resource.data.support_count == resource.data.support_count + 1;
+      allow delete: if false;
+    }
+
+    // Officials collection:
+    // - Never publicly readable (holds credentials/metadata).
+    // - Restricted exclusively to backend service account.
+    match /officials/{officialId} {
+      allow read: if false;
+      allow write: if false;
+    }
+
+    // Default catch-all rule: Deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
