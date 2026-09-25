@@ -373,8 +373,8 @@ export default function OfficialsDashboard({ session, onLogout }) {
               boxShadow: 'var(--shadow-sm)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                <BarChart3 size={18} color="var(--blue)" />
-                <h3 style={{ fontSize: '16px', margin: 0 }}>
+                <BarChart3 size={20} color="var(--blue)" />
+                <h3 style={{ fontSize: '18px', margin: 0 }}>
                   {level === 'national' ? 'Avg Priority Index by State' : level === 'state' ? 'Avg Priority Index by District' : 'Avg Priority Index by Locality'}
                 </h3>
               </div>
@@ -384,17 +384,17 @@ export default function OfficialsDashboard({ session, onLogout }) {
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                      <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#4b6182' }} angle={-25} textAnchor="end" interval={0} />
-                      <YAxis domain={[0, 100]} tick={{ fontSize: 11, fill: '#4b6182' }} />
+                      <XAxis dataKey="name" tick={{ fontSize: 13, fill: '#4b6182' }} angle={-25} textAnchor="end" interval={0} />
+                      <YAxis domain={[0, 100]} tick={{ fontSize: 13, fill: '#4b6182' }} />
                       <Tooltip 
                         formatter={(val) => [`${val}/100`, 'Priority Score']}
-                        contentStyle={{ borderRadius: '8px', border: '1px solid #d7e4f4', fontSize: '12px' }}
+                        contentStyle={{ borderRadius: '8px', border: '1px solid #d7e4f4', fontSize: '14px' }}
                       />
                       <Bar dataKey="priority_score" fill="#1656e0" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '13px' }}>
+                  <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '15px' }}>
                     No complaints recorded in this jurisdiction
                   </div>
                 )}
@@ -410,8 +410,8 @@ export default function OfficialsDashboard({ session, onLogout }) {
               boxShadow: 'var(--shadow-sm)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                <BarChart3 size={18} color="var(--blue)" />
-                <h3 style={{ fontSize: '16px', margin: 0 }}>
+                <BarChart3 size={20} color="var(--blue)" />
+                <h3 style={{ fontSize: '18px', margin: 0 }}>
                   Category Breakdown
                 </h3>
               </div>
@@ -427,19 +427,19 @@ export default function OfficialsDashboard({ session, onLogout }) {
                       <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
                       <XAxis
                         type="number"
-                        tick={{ fontSize: 11, fill: '#4b6182' }}
+                        tick={{ fontSize: 13, fill: '#4b6182' }}
                         allowDecimals={false}
                       />
                       <YAxis
                         type="category"
                         dataKey="name"
                         width={110}
-                        tick={{ fontSize: 11, fill: '#4b6182' }}
+                        tick={{ fontSize: 13, fill: '#4b6182' }}
                         tickFormatter={(v) => v.replace(/_/g, ' ')}
                       />
                       <Tooltip
                         formatter={(val, name, props) => [`${val} complaints`, props.payload?.name?.replace(/_/g, ' ') || name]}
-                        contentStyle={{ borderRadius: '8px', border: '1px solid #d7e4f4', fontSize: '12px' }}
+                        contentStyle={{ borderRadius: '8px', border: '1px solid #d7e4f4', fontSize: '14px' }}
                         cursor={{ fill: 'var(--ice)' }}
                       />
                       <Bar dataKey="value" radius={[0, 4, 4, 0]}>
@@ -450,7 +450,7 @@ export default function OfficialsDashboard({ session, onLogout }) {
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '13px' }}>
+                  <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '15px' }}>
                     No category data available
                   </div>
                 )}

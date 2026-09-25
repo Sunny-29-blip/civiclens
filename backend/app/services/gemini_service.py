@@ -117,7 +117,7 @@ class ClassificationResult(BaseModel):
 
 
 SYSTEM_PROMPT = """You are CivicLens AI, an expert civic infrastructure classifier and governance assistant for India.
-Your task is to analyze civic complaints submitted by citizens across India in English, Hindi, Hinglish, or regional languages.
+Your task is to analyze civic complaints submitted by citizens across India in English, Hindi, Hinglish, Urdu, Gujarati, Assamese, Bhojpuri, Malayalam, Tamil, Telugu, Kannada, Bengali, Marathi, or any Indian regional language.
 
 MULTI-LABEL CLASSIFICATION RULES:
 1. Treat every complaint as a multi-label classification problem. Identify and return 1 to 3 categories representing ALL distinct civic problems described.
@@ -146,7 +146,7 @@ MULTI-LABEL CLASSIFICATION RULES:
    - Extract only geography explicitly supported by the text. Never hallucinate locations. If unknown, return "unspecified".
 
 6. summary: Write a concise 1-sentence factual English summary.
-7. original_language: State detected input language (e.g. English, Hindi, Hinglish, Telugu, Tamil, Bengali, Marathi, Kannada, etc.)."""
+7. original_language: State detected input language (e.g. English, Hindi, Hinglish, Urdu, Gujarati, Assamese, Bhojpuri, Malayalam, Tamil, Telugu, Kannada, Bengali, Marathi, etc.)."""
 
 
 def _matches_any_keyword(text_lower: str, keywords: List[str]) -> bool:
@@ -516,13 +516,30 @@ def _heuristic_classify(
         support_count=1
     )
 
-    # 6. Language Detection
-    has_hindi = any('\u0900' <= char <= '\u097F' for char in text)
-    has_hinglish = any(k in lower for k in ["hai", "nahi", "raha", "rahi", "gaon", "sadak", "bijli", "pani", "khet", "bahut", "mein", "pichle", "fasal", "suk"])
-
-    if has_hindi:
-        original_language = "Hindi"
-    elif has_hinglish:
+    # 6. Language Detection Fallback
+    lower = text.lower()
+    if any('\u0600' <= char <= '\u06FF' or '\u0750' <= char <= '\u077F' for char in text):
+        original_language = "Urdu"
+    elif any('\u0A80' <= char <= '\u0AFF' for char in text):
+        original_language = "Gujarati"
+    elif any('\u0D00' <= char <= '\u0D7F' for char in text):
+        original_language = "Malayalam"
+    elif any('\u0C00' <= char <= '\u0C7F' for char in text):
+        original_language = "Telugu"
+    elif any('\u0B80' <= char <= '\u0BFF' for char in text):
+        original_language = "Tamil"
+    elif any('\u0C80' <= char <= '\u0CFF' for char in text):
+        original_language = "Kannada"
+    elif any('\u0980' <= char <= '\u09FF' for char in text):
+        original_language = "Assamese / Bengali"
+    elif any('\u0900' <= char <= '\u097F' for char in text):
+        # Bhojpuri or Hindi in Devanagari script
+        bhojpuri_markers = ["ba", "baate", "bhavat", "rowa", "kahe", "humke", "tohar", "laika", "gail", "rahin", "baani"]
+        if any(w in lower for w in bhojpuri_markers):
+            original_language = "Bhojpuri"
+        else:
+            original_language = "Hindi"
+    elif any(k in lower for k in ["hai", "nahi", "raha", "rahi", "gaon", "sadak", "bijli", "pani", "khet", "bahut", "mein", "pichle", "fasal", "suk"]):
         original_language = "Hinglish (Hindi in Latin script)"
     else:
         original_language = "English"

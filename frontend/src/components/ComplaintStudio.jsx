@@ -59,6 +59,12 @@ const CANONICAL_STATES = [
 const VOICE_LANGUAGES = [
   { code: 'en-IN', label: 'English (India)' },
   { code: 'hi-IN', label: 'हिन्दी (Hindi)' },
+  { code: 'ur-IN', label: 'اردو (Urdu)' },
+  { code: 'gu-IN', label: 'ગુજરાતી (Gujarati)' },
+  { code: 'as-IN', label: 'অসমীয়া (Assamese)' },
+  // Note: Bhojpuri has no separate standard Web Speech API locale; hi-IN is used as the closest transcription acoustic model fallback.
+  { code: 'hi-IN', label: 'भोजपुरी (Bhojpuri)' },
+  { code: 'ml-IN', label: 'മലയാളം (Malayalam)' },
   { code: 'te-IN', label: 'తెలుగు (Telugu)' },
   { code: 'ta-IN', label: 'தமிழ் (Tamil)' },
   { code: 'kn-IN', label: 'ಕನ್ನಡ (Kannada)' },
@@ -519,13 +525,13 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
                     className={`mic-btn ${isRecording ? 'listening' : ''}`}
                     title={isRecording ? 'Stop recording' : 'Click to dictate complaint'}
                   >
-                    {isRecording ? <MicOff size={20} /> : <Mic size={20} />}
+                    {isRecording ? <MicOff size={22} /> : <Mic size={22} />}
                   </button>
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--navy)' }}>
+                    <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--navy)' }}>
                       {isRecording ? 'Listening now...' : 'Voice Dictation'}
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--navy-soft)' }}>
+                    <div style={{ fontSize: '13px', color: 'var(--navy-soft)' }}>
                       {isRecording ? 'Speak clearly into your microphone' : 'Select language and tap mic to speak'}
                     </div>
                   </div>
@@ -533,15 +539,15 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
 
                 {/* Language Selector */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Languages size={14} color="var(--navy-soft)" />
+                  <Languages size={16} color="var(--navy-soft)" />
                   <select
                     value={voiceLang}
                     onChange={(e) => handleLanguageChange(e.target.value)}
                     className="select-input"
-                    style={{ fontSize: '12px', padding: '5px 10px', background: 'var(--white)' }}
+                    style={{ fontSize: '14px', padding: '6px 12px', background: 'var(--white)' }}
                   >
-                    {VOICE_LANGUAGES.map((lang) => (
-                      <option key={lang.code} value={lang.code}>
+                    {VOICE_LANGUAGES.map((lang, idx) => (
+                      <option key={`${lang.code}-${idx}`} value={lang.code}>
                         {lang.label}
                       </option>
                     ))}
@@ -555,6 +561,11 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
                     <div className={`wave-bar ${isRecording ? 'active' : ''}`}></div>
                   </div>
                 </div>
+              </div>
+
+              {/* Speech engine note */}
+              <div style={{ fontSize: '12.5px', color: 'var(--navy-soft)', margin: '-6px 0 14px 4px', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span>💡 Voice accuracy for regional languages depends on browser/OS speech recognition engines (English & Hindi offer highest fidelity).</span>
               </div>
 
               {/* Textarea */}

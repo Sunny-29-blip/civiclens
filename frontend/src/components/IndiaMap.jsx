@@ -73,8 +73,8 @@ function MapTooltip({ x, y, content }) {
       position: 'fixed',
       left: x + 14, top: y - 8,
       background: 'var(--navy)', color: '#fff',
-      fontSize: '12px', fontWeight: 500,
-      padding: '6px 10px', borderRadius: 'var(--radius-sm)',
+      fontSize: '14px', fontWeight: 500,
+      padding: '7px 12px', borderRadius: 'var(--radius-sm)',
       pointerEvents: 'none', zIndex: 9999,
       whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
       lineHeight: 1.4, border: '1px solid var(--sky)'
@@ -89,7 +89,7 @@ function DistrictStatCard({ regions }) {
   const region = regions?.[0];
   if (!region) {
     return (
-      <div style={{ textAlign: 'center', padding: '32px', color: 'var(--navy-soft)', fontSize: '13px' }}>
+      <div style={{ textAlign: 'center', padding: '32px', color: 'var(--navy-soft)', fontSize: '15px' }}>
         No data available for this district.
       </div>
     );
@@ -101,10 +101,10 @@ function DistrictStatCard({ regions }) {
         borderRadius: 'var(--radius-md)', padding: '24px 32px',
         textAlign: 'center', minWidth: '160px', boxShadow: 'var(--shadow-sm)'
       }}>
-        <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--blue)', lineHeight: 1.1 }}>
+        <div style={{ fontSize: '34px', fontWeight: 800, color: 'var(--blue)', lineHeight: 1.1 }}>
           {region.complaint_count}
         </div>
-        <div style={{ fontSize: '12px', color: 'var(--navy-soft)', marginTop: '4px', fontWeight: 500 }}>
+        <div style={{ fontSize: '14px', color: 'var(--navy-soft)', marginTop: '4px', fontWeight: 500 }}>
           Total Complaints
         </div>
       </div>
@@ -113,10 +113,10 @@ function DistrictStatCard({ regions }) {
         borderRadius: 'var(--radius-md)', padding: '24px 32px',
         textAlign: 'center', minWidth: '160px', boxShadow: 'var(--shadow-sm)'
       }}>
-        <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--navy)', lineHeight: 1.1 }}>
-          {region.avg_priority_score}<span style={{ fontSize: '16px', fontWeight: 500 }}>/100</span>
+        <div style={{ fontSize: '34px', fontWeight: 800, color: 'var(--navy)', lineHeight: 1.1 }}>
+          {region.avg_priority_score}<span style={{ fontSize: '18px', fontWeight: 500 }}>/100</span>
         </div>
-        <div style={{ fontSize: '12px', color: 'var(--navy-soft)', marginTop: '4px', fontWeight: 500 }}>
+        <div style={{ fontSize: '14px', color: 'var(--navy-soft)', marginTop: '4px', fontWeight: 500 }}>
           Avg Priority Score
         </div>
       </div>
@@ -254,7 +254,7 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
         width={800}
         height={420}
       >
-        <ZoomableGroup>
+        <ZoomableGroup center={projectionConfig.center}>
           <Geographies geography={safeGeoData}>
             {({ geographies }) => {
               if (!geographies || !Array.isArray(geographies) || geographies.length === 0) {
@@ -376,10 +376,10 @@ export default function IndiaMap({ token }) {
 
   const header = (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-      <MapIcon size={18} color="var(--blue)" />
-      <h3 style={{ fontSize: '16px', margin: 0 }}>{mapTitle}</h3>
+      <MapIcon size={20} color="var(--blue)" />
+      <h3 style={{ fontSize: '18px', margin: 0 }}>{mapTitle}</h3>
       {(level === 'national' || level === 'state') && (
-        <span style={{ marginLeft: 'auto', fontSize: '11px', color: 'var(--navy-soft)' }}>
+        <span style={{ marginLeft: 'auto', fontSize: '13px', color: 'var(--navy-soft)' }}>
           Hover for details · Scroll to zoom
         </span>
       )}
@@ -391,7 +391,7 @@ export default function IndiaMap({ token }) {
     return (
       <div style={cardStyle}>
         {header}
-        <div style={{ height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '13px' }}>
+        <div style={{ height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '15px' }}>
           <div>
             <div style={{
               width: '28px', height: '28px', borderRadius: '50%',
@@ -409,8 +409,8 @@ export default function IndiaMap({ token }) {
   if (error) {
     return (
       <div style={cardStyle}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--rose)', fontSize: '13px' }}>
-          <AlertCircle size={16} /> {error}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--rose)', fontSize: '15px' }}>
+          <AlertCircle size={18} /> {error}
         </div>
       </div>
     );
@@ -421,7 +421,7 @@ export default function IndiaMap({ token }) {
     return (
       <div style={cardStyle}>
         {header}
-        <div style={{ height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '13px' }}>
+        <div style={{ height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--navy-soft)', fontSize: '15px' }}>
           Map data unavailable — log in as a government official to view.
         </div>
       </div>
@@ -449,13 +449,13 @@ export default function IndiaMap({ token }) {
 
       {/* Color legend */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-        <span style={{ fontSize: '11px', color: 'var(--navy-soft)' }}>Fewer</span>
+        <span style={{ fontSize: '13px', color: 'var(--navy-soft)' }}>Fewer</span>
         <div style={{
-          flex: 1, maxWidth: '140px', height: '7px', borderRadius: '4px',
+          flex: 1, maxWidth: '140px', height: '8px', borderRadius: '4px',
           background: `linear-gradient(to right, ${interpolateColor(0.1)}, ${interpolateColor(0.95)})`
         }} />
-        <span style={{ fontSize: '11px', color: 'var(--navy-soft)' }}>More complaints</span>
-        <span style={{ fontSize: '11px', color: 'var(--navy-soft)', marginLeft: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <span style={{ fontSize: '13px', color: 'var(--navy-soft)' }}>More complaints</span>
+        <span style={{ fontSize: '13px', color: 'var(--navy-soft)', marginLeft: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
           <span style={{ display: 'inline-block', width: '14px', height: '10px', background: SKY_HOVER, borderRadius: '2px', border: '1px solid #93c5fd' }} />
           Hovered
         </span>
@@ -469,7 +469,7 @@ export default function IndiaMap({ token }) {
         maxCount={maxCount}
       />
 
-      <div style={{ marginTop: '10px', fontSize: '11px', color: 'var(--navy-soft)' }}>
+      <div style={{ marginTop: '10px', fontSize: '13px', color: 'var(--navy-soft)' }}>
         Shading based on complaint count per region · Hover to inspect exact figures
       </div>
     </div>

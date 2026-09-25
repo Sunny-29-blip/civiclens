@@ -33,12 +33,15 @@
 }
 
 html {
+  font-size: 18px;
   background: var(--white);
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   background: var(--white);
   color: var(--navy);
   overflow-x: hidden;
