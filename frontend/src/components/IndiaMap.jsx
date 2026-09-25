@@ -1,3 +1,13 @@
+/**
+ * CivicLens Geographic Information System (GIS) Subsystem
+ *
+ * DATA PROVENANCE:
+ * Dataset: Survey of India (SOI) Compliant Administrative Boundary Dataset
+ * Source Repository: https://github.com/udit-001/india-maps-data
+ * Administrative Structure: Current post-2019/2020 reorganization (28 States + 8 UTs = 36 Entities)
+ * Complies with official Survey of India boundary guidelines with complete depiction of
+ * Jammu & Kashmir and Ladakh as separate Union Territories, Aksai Chin, and official external frontiers.
+ */
 import React, { useState, useCallback } from 'react';
 import { api } from '../services/api';
 import {
@@ -22,43 +32,44 @@ const STATE_ALIASES = {
   // Andaman & Nicobar
   'andaman and nicobar': 'andaman and nicobar islands',
   'andaman and nicobar islands': 'andaman and nicobar',
-  'andaman & nicobar islands': 'andaman and nicobar',
-  'andaman & nicobar': 'andaman and nicobar',
+  'andaman & nicobar islands': 'andaman and nicobar islands',
+  'andaman & nicobar': 'andaman and nicobar islands',
 
-  // Jammu & Kashmir / Ladakh
+  // Jammu & Kashmir / Ladakh (Post-2019 two separate UTs)
   'jammu and kashmir': 'jammu and kashmir',
   'jammu & kashmir': 'jammu and kashmir',
   'j and k': 'jammu and kashmir',
-  'ladakh': 'jammu and kashmir',
+  'ladakh': 'ladakh',
 
   // Delhi / NCT
-  'delhi': 'national capital territory of delhi',
+  'delhi': 'delhi',
   'national capital territory of delhi': 'delhi',
   'nct of delhi': 'delhi',
 
   // Uttarakhand / Uttaranchal
-  'uttarakhand': 'uttaranchal',
+  'uttarakhand': 'uttarakhand',
   'uttaranchal': 'uttarakhand',
 
   // Odisha / Orissa
-  'odisha': 'orissa',
+  'odisha': 'odisha',
   'orissa': 'odisha',
 
   // Puducherry / Pondicherry
-  'puducherry': 'pondicherry',
+  'puducherry': 'puducherry',
   'pondicherry': 'puducherry',
 
   // Chhattisgarh / Chattisgarh
-  'chhattisgarh': 'chattisgarh',
+  'chhattisgarh': 'chhattisgarh',
   'chattisgarh': 'chhattisgarh',
 
   // Dadra and Nagar Haveli and Daman and Diu
-  'dadra and nagar haveli and daman and diu': 'dadra and nagar haveli',
+  'dadra and nagar haveli and daman and diu': 'dadra and nagar haveli and daman and diu',
   'dadra and nagar haveli': 'dadra and nagar haveli and daman and diu',
   'daman and diu': 'dadra and nagar haveli and daman and diu',
+  'dadra & nagar haveli and daman & diu': 'dadra and nagar haveli and daman and diu',
 
-  // Telangana / Andhra Pradesh
-  'telangana': 'andhra pradesh'
+  // Telangana
+  'telangana': 'telangana'
 };
 
 const DISTRICT_ALIASES = {

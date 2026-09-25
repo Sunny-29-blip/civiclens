@@ -48,7 +48,7 @@ export default function MyIssuesPage({ session, onOpenReport }) {
           </h1>
         </div>
         <p style={{ color: 'var(--navy-soft)', fontSize: '14px', margin: 0 }}>
-          Track the status, handling tier, and estimated resolution of grievances you have submitted.
+          Track the status, handling tier, and estimated resolution of civic issues you have submitted.
         </p>
       </div>
 
@@ -62,9 +62,9 @@ export default function MyIssuesPage({ session, onOpenReport }) {
           background: 'var(--ice)', border: '1px dashed var(--sky)', borderRadius: 'var(--radius-md)'
         }}>
           <CheckCircle2 size={40} color="var(--sky)" style={{ margin: '0 auto 14px', display: 'block' }} />
-          <h3 style={{ fontSize: '16px', color: 'var(--navy)', margin: '0 0 8px' }}>No grievances yet</h3>
+          <h3 style={{ fontSize: '16px', color: 'var(--navy)', margin: '0 0 8px' }}>No reported issues yet</h3>
           <p style={{ fontSize: '13.5px', color: 'var(--navy-soft)', margin: '0 0 20px' }}>
-            You haven&apos;t submitted any grievances yet.
+            You haven&apos;t submitted any issues yet.
           </p>
           {onOpenReport && (
             <button

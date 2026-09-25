@@ -190,7 +190,7 @@ export default function Navbar({
                         }}
                       >
                         <Sparkles size={15} color="var(--blue)" />
-                        <span>Submit Grievance</span>
+                        <span>Submit Issue</span>
                       </button>
 
                       <button

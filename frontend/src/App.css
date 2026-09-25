@@ -896,8 +896,8 @@ nav.navbar {
   border-radius: var(--radius-sm);
 }
 
-.tag-urban { background: #dbeafe; color: #1e40af; }
-.tag-rural { background: #fef3c7; color: #92400e; }
+.tag-urban { background: var(--tag-urban-bg); color: var(--tag-urban-text); border: 1px solid var(--tag-urban-border); }
+.tag-rural { background: var(--tag-rural-bg); color: var(--tag-rural-text); border: 1px solid var(--tag-rural-border); }
 
 /* Urgency Badges */
 .urgency-badge {
@@ -911,9 +911,9 @@ nav.navbar {
   text-transform: uppercase;
 }
 
-.urgency-high { background: var(--rose-bg); color: var(--rose); border: 1px solid rgba(239, 68, 68, 0.3); }
-.urgency-medium { background: var(--amber-bg); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
-.urgency-low { background: var(--emerald-bg); color: #047857; border: 1px solid rgba(16, 185, 129, 0.3); }
+.urgency-high { background: var(--rose-bg); color: var(--rose-text); border: 1px solid var(--rose-border); }
+.urgency-medium { background: var(--amber-bg); color: var(--amber-text); border: 1px solid var(--amber-border); }
+.urgency-low { background: var(--emerald-bg); color: var(--emerald-text); border: 1px solid var(--emerald-border); }
 
 /* 0-100 Priority Score Card */
 .priority-score-box {
@@ -935,7 +935,7 @@ nav.navbar {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: var(--cyan);
+  color: #e0f2fe;
 }
 
 .priority-score-reason {

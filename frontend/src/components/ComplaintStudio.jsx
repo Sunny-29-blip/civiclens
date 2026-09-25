@@ -249,7 +249,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
   // Category chip removal
   const handleRemoveCategory = (catToRemove) => {
     if (selectedCategories.length <= 1) {
-      alert("A grievance must have at least 1 civic category.");
+      alert("An issue must have at least 1 civic category.");
       return;
     }
     const updated = selectedCategories.filter((c) => c !== catToRemove);
@@ -261,7 +261,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
   const handleAddCategory = (categoryKey) => {
     if (selectedCategories.includes(categoryKey)) return;
     if (selectedCategories.length >= 3) {
-      alert("Maximum 3 categories allowed per grievance.");
+      alert("Maximum 3 categories allowed per issue.");
       return;
     }
     const updated = [...selectedCategories, categoryKey];
@@ -292,7 +292,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
       );
       setSubmittedDoc(result);
     } catch (err) {
-      setError(err.message || 'Failed to submit grievance.');
+      setError(err.message || 'Failed to submit issue.');
     } finally {
       setIsSubmitting(false);
     }
@@ -322,7 +322,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
               </div>
               <h1>Your problems, finally <span>in focus.</span></h1>
               <p>
-                CivicLens combines Google Gemini multilingual intelligence with deterministic jurisdiction verification to classify compound civic grievances, eliminate hallucinations, and compute explainable 0–100 governance priority scores.
+                CivicLens combines Google Gemini multilingual intelligence with deterministic jurisdiction verification to classify compound civic issues, eliminate hallucinations, and compute explainable 0–100 governance priority scores.
               </p>
               <div className="hero-actions">
                 <a 
@@ -419,10 +419,10 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
         </div>
       </div>
 
-      {/* ============ 2. REPORT INFRASTRUCTURE GRIEVANCE (BELOW THE FOLD) ============ */}
+      {/* ============ 2. REPORT INFRASTRUCTURE ISSUE (BELOW THE FOLD) ============ */}
       <div id="report-section">
         <div className="section-header">
-          <h2>Submit Infrastructure Grievance</h2>
+          <h2>Submit Infrastructure Issue</h2>
           <p>
             Report local roads, power disruptions, water shortages, or health access issues. Gemini AI will extract multiple civic categories and evaluate governance priority.
           </p>
@@ -452,7 +452,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
               Sign in to report an issue
             </h3>
             <p style={{ fontSize: '13.5px', color: 'var(--navy-soft)', margin: '0 auto 24px', maxWidth: '360px', lineHeight: '1.6' }}>
-              You need a verified citizen account to submit a grievance. Your identity helps officials respond to the right person and location.
+              You need a verified citizen account to submit an issue. Your identity helps officials respond to the right person and location.
             </p>
             <button
               type="button"
@@ -471,7 +471,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
             <div className="studio-header">
               <div className="studio-title">
                 <FileText size={20} color="var(--blue)" />
-                <span>Grievance Description</span>
+                <span>Issue Description</span>
               </div>
               
               {session?.role === 'citizen' ? (
@@ -563,9 +563,9 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
                 </div>
               </div>
 
-              {/* Speech engine note */}
-              <div style={{ fontSize: '12.5px', color: 'var(--navy-soft)', margin: '-6px 0 14px 4px', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span>💡 Voice accuracy for regional languages depends on browser/OS speech recognition engines (English & Hindi offer highest fidelity).</span>
+              {/* Speech engine note without emoji */}
+              <div style={{ fontSize: '12px', color: 'var(--navy-soft)', margin: '-6px 0 14px 4px', fontStyle: 'normal', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span>Voice accuracy for regional languages depends on browser/OS speech recognition engines (English & Hindi offer highest fidelity).</span>
               </div>
 
               {/* Textarea */}
@@ -873,7 +873,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
                 }}>
                   <div style={{ color: '#047857', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                     <CheckCircle2 size={18} />
-                    <span>Grievance Recorded in Firestore!</span>
+                    <span>Issue Recorded in Firestore!</span>
                   </div>
                   <div style={{ fontSize: '12px', color: '#065f46', marginTop: '4px' }}>
                     ID: <code>{submittedDoc.id}</code> · Priority Score: <strong>{submittedDoc.priority_score}/100</strong>
@@ -947,7 +947,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
                 <Sparkles size={26} />
               </div>
               <h3 style={{ fontSize: '17px', marginBottom: '6px' }}>
-                AI Grievance Analysis Studio
+                AI Issue Analysis Studio
               </h3>
               <p style={{ fontSize: '13px', color: 'var(--navy-soft)', maxWidth: '340px', margin: '0 auto 16px', lineHeight: '1.5' }}>
                 Type or dictate your infrastructure issue on the left. Gemini will detect multiple civic categories, verify canonical location, compute an explainable 0–100 priority score, and let you edit category tags before final submission.

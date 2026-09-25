@@ -147,7 +147,7 @@ export default function OfficialsDashboard({ session, onLogout }) {
   const NAV_TABS = [
     { id: 'overview',   label: 'Intelligence Overview', icon: LayoutDashboard },
     { id: 'hotspots',   label: 'Ranked Hotspots',       icon: MapPin },
-    { id: 'grievances', label: 'All Grievances',         icon: List },
+    { id: 'grievances', label: 'All Issues',            icon: List },
   ];
 
   return (
@@ -644,7 +644,7 @@ export default function OfficialsDashboard({ session, onLogout }) {
           <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
             <div>
               <h3 style={{ fontSize: '17px', margin: 0 }}>
-                All Scoped Citizen Grievances ({complaints.length})
+                All Scoped Citizen Issues ({complaints.length})
               </h3>
               <p style={{ fontSize: '12.5px', color: 'var(--navy-soft)', margin: '4px 0 0' }}>
                 Jurisdiction-filtered. Use the scope filters above if needed.

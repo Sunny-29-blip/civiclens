@@ -9,13 +9,32 @@
   --navy-soft: #5c7290;
   --line: #dbe6f4;
   
-  /* Status Colors */
-  --emerald: #10b981;
+  /* Status & Semantic Colors (Calm Muted Palette) */
+  --emerald: #059669;
   --emerald-bg: #ecfdf5;
-  --amber: #f59e0b;
-  --amber-bg: #fffbeb;
-  --rose: #ef4444;
+  --emerald-text: #065f46;
+  --emerald-border: #a7f3d0;
+
+  --amber: #d97706;
+  --amber-bg: #fef3c7;
+  --amber-text: #92400e;
+  --amber-border: #fde68a;
+
+  --rose: #dc2626;
   --rose-bg: #fef2f2;
+  --rose-text: #991b1b;
+  --rose-border: #fecaca;
+
+  --coral-muted: #e11d48;
+
+  /* Rural & Urban Area Tags */
+  --tag-rural-bg: #fef3c7;
+  --tag-rural-text: #92400e;
+  --tag-rural-border: #fde68a;
+
+  --tag-urban-bg: #e0f2fe;
+  --tag-urban-text: #0369a1;
+  --tag-urban-border: #bae6fd;
 
   --shadow-sm: 0 2px 8px rgba(8, 26, 58, 0.04);
   --shadow-md: 0 12px 28px -10px rgba(8, 26, 58, 0.08);

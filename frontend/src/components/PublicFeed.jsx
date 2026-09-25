@@ -95,21 +95,22 @@ function IssueCard({ issue, isHighlighted, isSupported, onSupport }) {
           <span style={{
             fontSize: '11px', fontWeight: 700, padding: '2px 8px',
             borderRadius: 'var(--radius-full)',
-            background: priorityScore >= 75 ? 'rgba(239,68,68,0.08)' : priorityScore >= 40 ? 'rgba(245,158,11,0.08)' : 'rgba(16,185,129,0.08)',
-            color: priorityColor,
-            border: `1px solid ${priorityColor}33`
+            background: priorityScore >= 75 ? 'var(--rose-bg)' : priorityScore >= 40 ? 'var(--amber-bg)' : 'var(--emerald-bg)',
+            color: priorityScore >= 75 ? 'var(--rose-text)' : priorityScore >= 40 ? 'var(--amber-text)' : 'var(--emerald-text)',
+            border: `1px solid ${priorityScore >= 75 ? 'var(--rose-border)' : priorityScore >= 40 ? 'var(--amber-border)' : 'var(--emerald-border)'}`
           }}>
             {priorityLabel} priority · {priorityScore}/100
           </span>
           <span style={{
-            fontSize: '11px', fontWeight: 500, color: 'var(--navy-soft)',
+            fontSize: '11px', fontWeight: 600,
             marginLeft: 'auto',
-            background: issue.area_type === 'rural' ? 'rgba(34,197,94,0.08)' : 'rgba(99,102,241,0.08)',
-            border: `1px solid ${issue.area_type === 'rural' ? 'rgba(34,197,94,0.25)' : 'rgba(99,102,241,0.25)'}`,
+            background: issue.area_type === 'rural' ? 'var(--tag-rural-bg)' : 'var(--tag-urban-bg)',
+            color: issue.area_type === 'rural' ? 'var(--tag-rural-text)' : 'var(--tag-urban-text)',
+            border: `1px solid ${issue.area_type === 'rural' ? 'var(--tag-rural-border)' : 'var(--tag-urban-border)'}`,
             padding: '2px 8px', borderRadius: 'var(--radius-full)',
             textTransform: 'capitalize'
           }}>
-            {issue.area_type === 'rural' ? 'Rural' : 'Urban'}
+            {issue.area_type === 'rural' ? 'Rural Area' : 'Urban Area'}
           </span>
         </div>
 
@@ -358,7 +359,7 @@ export default function PublicFeed({ session, onOpenReport, onOpenAuth, highligh
         </div>
         <h1 style={{ fontSize: '30px', marginBottom: '6px' }}>Explore Public Issues</h1>
         <p style={{ fontSize: '14.5px', color: 'var(--navy-soft)', maxWidth: '560px', margin: 0 }}>
-          Browse verified grievances across India. Back issues affecting your area to help prioritise government response.
+          Browse verified civic issues across India. Back issues affecting your area to help prioritise government response.
         </p>
       </section>
 

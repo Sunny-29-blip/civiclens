@@ -521,6 +521,29 @@ INITIAL_COMPLAINTS: List[Dict[str, Any]] = [
         "timestamp": time.time() - 3600 * 24,
         "status": "pending",
         "classified_by": "gemini"
+    },
+    {
+        "id": "c-122",
+        "raw_text": "Solar microgrid battery unit damaged due to extreme sub-zero temperatures near Chang La pass route in Leh district, causing power outage across 4 villages.",
+        "area_type": "rural",
+        "categories": ["electricity"],
+        "ai_categories": ["electricity"],
+        "manual_categories": [],
+        "location": "Chang La Route, Leh, Ladakh",
+        "state": "Ladakh",
+        "district": "Leh",
+        "locality": "Chang La",
+        "urgency": "high",
+        "priority_score": 84,
+        "priority_reason": "Priority: 84/100 · Critical winter energy failure in remote high-altitude rural valley.",
+        "summary": "Sub-zero solar microgrid battery failure cutting power to 4 Leh villages.",
+        "original_language": "English",
+        "user_id": "usr-6114",
+        "support_count": 19400,
+        "high_priority": True,
+        "timestamp": time.time() - 3600 * 18,
+        "status": "in_progress",
+        "classified_by": "gemini"
     }
 ]
 
