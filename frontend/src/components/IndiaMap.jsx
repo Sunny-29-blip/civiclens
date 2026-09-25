@@ -3,26 +3,62 @@ import { api } from '../services/api';
 import {
   ComposableMap,
   Geographies,
-  Geography,
-  ZoomableGroup
+  Geography
 } from 'react-simple-maps';
+import { geoMercator } from 'd3-geo';
 import { Map as MapIcon, AlertCircle } from 'lucide-react';
 import statesGeoData from '../data/india_states.json';
 import districtsGeoData from '../data/india_districts.json';
 
 /* ─── Name normalization & alias map ──────────────────────────────────────── */
-const normalize = (s) => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+const normalize = (s) => (s || '')
+  .toLowerCase()
+  .replace(/&/g, 'and')
+  .replace(/[^a-z0-9\s]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
 
 const STATE_ALIASES = {
-  'andaman and nicobar': 'andaman & nicobar islands',
-  'jammu and kashmir': 'jammu & kashmir',
+  // Andaman & Nicobar
+  'andaman and nicobar': 'andaman and nicobar islands',
+  'andaman and nicobar islands': 'andaman and nicobar',
+  'andaman & nicobar islands': 'andaman and nicobar',
+  'andaman & nicobar': 'andaman and nicobar',
+
+  // Jammu & Kashmir / Ladakh
+  'jammu and kashmir': 'jammu and kashmir',
+  'jammu & kashmir': 'jammu and kashmir',
+  'j and k': 'jammu and kashmir',
+  'ladakh': 'jammu and kashmir',
+
+  // Delhi / NCT
+  'delhi': 'national capital territory of delhi',
+  'national capital territory of delhi': 'delhi',
   'nct of delhi': 'delhi',
-  'delhi': 'nct of delhi',
+
+  // Uttarakhand / Uttaranchal
   'uttarakhand': 'uttaranchal',
   'uttaranchal': 'uttarakhand',
+
+  // Odisha / Orissa
   'odisha': 'orissa',
   'orissa': 'odisha',
+
+  // Puducherry / Pondicherry
+  'puducherry': 'pondicherry',
+  'pondicherry': 'puducherry',
+
+  // Chhattisgarh / Chattisgarh
+  'chhattisgarh': 'chattisgarh',
+  'chattisgarh': 'chhattisgarh',
+
+  // Dadra and Nagar Haveli and Daman and Diu
   'dadra and nagar haveli and daman and diu': 'dadra and nagar haveli',
+  'dadra and nagar haveli': 'dadra and nagar haveli and daman and diu',
+  'daman and diu': 'dadra and nagar haveli and daman and diu',
+
+  // Telangana / Andhra Pradesh
+  'telangana': 'andhra pradesh'
 };
 
 const DISTRICT_ALIASES = {
@@ -38,11 +74,31 @@ const DISTRICT_ALIASES = {
   'visakhapatnam': 'vishakhapatnam',
 };
 
-function matchRegion(geoName, dataMap, aliases) {
+function matchRegion(geoName, dataMap, aliases = {}) {
+  if (!geoName || !dataMap) return null;
   const key = normalize(geoName);
   if (dataMap.has(key)) return dataMap.get(key);
+
+  // Direct alias lookup
   const alt = aliases[key];
   if (alt && dataMap.has(normalize(alt))) return dataMap.get(normalize(alt));
+
+  // Reverse alias lookup
+  for (const [aliasKey, targetKey] of Object.entries(aliases)) {
+    if (normalize(targetKey) === key && dataMap.has(normalize(aliasKey))) {
+      return dataMap.get(normalize(aliasKey));
+    }
+    if (normalize(aliasKey) === key && dataMap.has(normalize(targetKey))) {
+      return dataMap.get(normalize(targetKey));
+    }
+  }
+
+  // Partial / Substring containment check
+  for (const [mapKey, val] of dataMap.entries()) {
+    if (mapKey.length > 3 && (key.includes(mapKey) || mapKey.includes(key))) {
+      return val;
+    }
+  }
   return null;
 }
 
@@ -61,9 +117,11 @@ function regionColor(count, maxCount) {
   return interpolateColor(0.1 + t * 0.85);
 }
 
-// Part B: sky-blue hover fill (#bfe0ff = --sky)
+// Part A & B: sky-blue hover fill (#bfe0ff = --sky) & boundary stroke
 const SKY_HOVER   = '#bfe0ff';
 const NO_DATA_COLOR = '#e8f0fb';
+const BORDER_STROKE = '#64748b'; // Clear medium-slate boundary outline
+const BORDER_STROKE_HOVER = '#1d4ed8';
 
 /* ─── Tooltip ─────────────────────────────────────────────────────────────── */
 function MapTooltip({ x, y, content }) {
@@ -200,12 +258,14 @@ class FeatureErrorBoundary extends React.Component {
 function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0, content: null });
   const [hoveredKey, setHoveredKey] = useState(null);
+  const containerRef = React.useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 480 });
 
   const handleMouseMove = useCallback((e) => {
     setTooltip(prev => ({ ...prev, x: e.clientX, y: e.clientY }));
   }, []);
 
-  // Filter out any corrupted or malformed features defensively
+  // Defensive validation of feature geometries
   const safeGeoData = React.useMemo(() => {
     if (!geoData || !Array.isArray(geoData.features)) return geoData;
     const validFeatures = [];
@@ -215,7 +275,7 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
       if (result.valid) {
         validFeatures.push(feat);
       } else {
-        const featName = feat?.properties?.NAME_2 || feat?.properties?.NAME_1 || feat?.properties?.st_nm || feat?.properties?.district || `Feature_${i}`;
+        const featName = feat?.properties?.NAME_2 || feat?.properties?.NAME_1 || feat?.properties?.st_nm || `Feature_${i}`;
         console.warn(`[IndiaMap] Skipping malformed feature "${featName}" at index ${i}: ${result.reason}`);
       }
     }
@@ -225,99 +285,141 @@ function ChoroplethMap({ geoData, isNational, scopeState, dataMap, maxCount }) {
     };
   }, [geoData]);
 
-  const STATE_CENTERS = {
-    'uttar pradesh': [81.0, 27.0], 'maharashtra': [75.7, 19.7], 'rajasthan': [74.2, 27.0],
-    'madhya pradesh': [78.6, 23.5], 'tamil nadu': [78.6, 10.9], 'karnataka': [76.9, 15.3],
-    'gujarat': [71.5, 22.2], 'andhra pradesh': [79.7, 15.9], 'odisha': [85.1, 20.9],
-    'west bengal': [87.8, 22.8], 'telangana': [79.0, 17.4], 'kerala': [76.2, 10.4],
-    'bihar': [85.3, 25.1], 'jharkhand': [85.3, 23.6], 'assam': [92.9, 26.2],
-    'punjab': [75.3, 31.1], 'haryana': [76.0, 29.0], 'delhi': [77.1, 28.7],
-    'himachal pradesh': [77.1, 31.8], 'uttarakhand': [79.0, 30.1],
-    'chhattisgarh': [81.8, 21.3], 'default': [82.0, 22.0]
-  };
-  const stateCenter = STATE_CENTERS[scopeState] || STATE_CENTERS['default'];
+  // Compute visible features based on tier (National vs State drill-down)
+  const visibleFeatures = React.useMemo(() => {
+    if (!safeGeoData?.features) return [];
+    if (isNational) return safeGeoData.features;
+    return safeGeoData.features.filter(geo => {
+      const geoState = normalize(geo.properties?.NAME_1 || '');
+      return geoState === scopeState ||
+        normalize(STATE_ALIASES[scopeState] || '') === geoState ||
+        normalize(STATE_ALIASES[geoState] || '') === scopeState;
+    });
+  }, [safeGeoData, isNational, scopeState]);
 
-  const projectionConfig = isNational
-    ? { scale: 1000, center: [82, 22] }
-    : { scale: 3400, center: stateCenter };
+  // Observe container dimensions for dynamic responsive sizing
+  React.useEffect(() => {
+    if (!containerRef.current) return;
+    const updateDims = () => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (rect && rect.width > 0) {
+        const w = Math.round(rect.width);
+        const h = Math.max(380, Math.min(540, Math.round(w * 0.62)));
+        setDimensions({ width: w, height: h });
+      }
+    };
+    updateDims();
+    const ro = new ResizeObserver(updateDims);
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  // PART B: Automatic fitExtent projection to make the map fill container properly and stay centered
+  const projection = React.useMemo(() => {
+    const proj = geoMercator();
+    const padding = 16;
+    const extent = [
+      [padding, padding],
+      [dimensions.width - padding, dimensions.height - padding]
+    ];
+
+    const targetCollection = !isNational && visibleFeatures.length > 0
+      ? { type: 'FeatureCollection', features: visibleFeatures }
+      : (safeGeoData?.features?.length > 0 ? safeGeoData : statesGeoData);
+
+    try {
+      proj.fitExtent(extent, targetCollection);
+    } catch (e) {
+      console.warn('[IndiaMap] fitExtent projection fallback:', e);
+      proj.fitExtent(extent, statesGeoData);
+    }
+    return proj;
+  }, [dimensions, isNational, visibleFeatures, safeGeoData]);
 
   return (
-    // Explicit height on the container so SVG doesn't collapse
     <div
-      style={{ width: '100%', height: '420px', position: 'relative', userSelect: 'none' }}
+      ref={containerRef}
+      style={{
+        width: '100%',
+        minHeight: '420px',
+        position: 'relative',
+        userSelect: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#f8fafc',
+        borderRadius: 'var(--radius-sm)',
+        overflow: 'hidden'
+      }}
       onMouseMove={handleMouseMove}
     >
       <ComposableMap
-        projection="geoMercator"
-        projectionConfig={projectionConfig}
-        style={{ width: '100%', height: '100%' }}
-        width={800}
-        height={420}
+        projection={projection}
+        width={dimensions.width}
+        height={dimensions.height}
+        style={{ width: '100%', height: `${dimensions.height}px` }}
       >
-        <ZoomableGroup center={projectionConfig.center}>
-          <Geographies geography={safeGeoData}>
-            {({ geographies }) => {
-              if (!geographies || !Array.isArray(geographies) || geographies.length === 0) {
+        <Geographies geography={safeGeoData}>
+          {({ geographies }) => {
+            if (!geographies || !Array.isArray(geographies) || geographies.length === 0) {
+              return null;
+            }
+            const geosToRender = isNational
+              ? geographies
+              : geographies.filter(geo => {
+                  const geoState = normalize(geo.properties?.NAME_1 || '');
+                  return geoState === scopeState ||
+                    normalize(STATE_ALIASES[scopeState] || '') === geoState ||
+                    normalize(STATE_ALIASES[geoState] || '') === scopeState;
+                });
+
+            return geosToRender.map(geo => {
+              const rawName = isNational
+                ? (geo.properties?.NAME_1 || 'Unknown')
+                : (geo.properties?.NAME_2 || geo.properties?.NAME_1 || 'Unknown');
+
+              const check = validateGeoFeature(geo);
+              if (!check.valid) {
                 return null;
               }
-              const visibleGeos = isNational
-                ? geographies
-                : geographies.filter(geo => {
-                    const geoState = normalize(geo.properties?.NAME_1 || '');
-                    return geoState === scopeState ||
-                      STATE_ALIASES[scopeState] === geoState ||
-                      STATE_ALIASES[geoState] === scopeState;
-                  });
 
-              return visibleGeos.map(geo => {
-                const rawName = isNational
-                  ? (geo.properties?.NAME_1 || 'Unknown')
-                  : (geo.properties?.NAME_2 || geo.properties?.NAME_1 || 'Unknown');
+              const regionData = matchRegion(rawName, dataMap, isNational ? STATE_ALIASES : DISTRICT_ALIASES);
+              const count = regionData?.complaint_count ?? 0;
+              const avgPs = regionData?.avg_priority_score ?? '—';
 
-                const check = validateGeoFeature(geo);
-                if (!check.valid) {
-                  console.warn(`[IndiaMap] Skipping malformed visible feature "${rawName}": ${check.reason}`);
-                  return null;
-                }
+              const isHovered = hoveredKey === geo.rsmKey;
+              const baseFill = count > 0 ? regionColor(count, maxCount) : NO_DATA_COLOR;
+              const fill = isHovered ? SKY_HOVER : baseFill;
 
-                const regionData = matchRegion(rawName, dataMap, isNational ? STATE_ALIASES : DISTRICT_ALIASES);
-                const count = regionData?.complaint_count ?? 0;
-                const avgPs = regionData?.avg_priority_score ?? '—';
-
-                const isHovered = hoveredKey === geo.rsmKey;
-                const baseFill = count > 0 ? regionColor(count, maxCount) : NO_DATA_COLOR;
-                const fill = isHovered ? SKY_HOVER : baseFill;
-
-                return (
-                  <FeatureErrorBoundary key={geo.rsmKey || rawName} featureName={rawName}>
-                    <Geography
-                      geography={geo}
-                      fill={fill}
-                      stroke="#ffffff"
-                      strokeWidth={isHovered ? 1.5 : 0.5}
-                      style={{
-                        default:  { outline: 'none', transition: 'fill 0.12s ease' },
-                        hover:    { outline: 'none', cursor: 'pointer' },
-                        pressed:  { outline: 'none' }
-                      }}
-                      onMouseEnter={() => {
-                        setHoveredKey(geo.rsmKey);
-                        const label = count > 0
-                          ? `${rawName}: ${count} complaint${count !== 1 ? 's' : ''} · Avg priority: ${avgPs}/100`
-                          : `${rawName}: No data`;
-                        setTooltip(prev => ({ ...prev, content: label }));
-                      }}
-                      onMouseLeave={() => {
-                        setHoveredKey(null);
-                        setTooltip(prev => ({ ...prev, content: null }));
-                      }}
-                    />
-                  </FeatureErrorBoundary>
-                );
-              });
-            }}
-          </Geographies>
-        </ZoomableGroup>
+              return (
+                <FeatureErrorBoundary key={geo.rsmKey || rawName} featureName={rawName}>
+                  <Geography
+                    geography={geo}
+                    fill={fill}
+                    stroke={isHovered ? BORDER_STROKE_HOVER : BORDER_STROKE}
+                    strokeWidth={isHovered ? 1.6 : 0.85}
+                    style={{
+                      default:  { outline: 'none', transition: 'fill 0.12s ease, stroke 0.12s ease' },
+                      hover:    { outline: 'none', cursor: 'pointer' },
+                      pressed:  { outline: 'none' }
+                    }}
+                    onMouseEnter={() => {
+                      setHoveredKey(geo.rsmKey);
+                      const label = count > 0
+                        ? `${rawName}: ${count} complaint${count !== 1 ? 's' : ''} · Avg priority: ${avgPs}/100`
+                        : `${rawName}: No data`;
+                      setTooltip(prev => ({ ...prev, content: label }));
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredKey(null);
+                      setTooltip(prev => ({ ...prev, content: null }));
+                    }}
+                  />
+                </FeatureErrorBoundary>
+              );
+            });
+          }}
+        </Geographies>
       </ComposableMap>
 
       <MapTooltip x={tooltip.x} y={tooltip.y} content={tooltip.content} />
