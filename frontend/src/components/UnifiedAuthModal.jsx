@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   User, Landmark, X, ArrowRight, ShieldCheck, 
   Lock, Eye, EyeOff, AlertCircle, Sparkles, 
-  LogIn, Check, ChevronRight
+  LogIn, ChevronRight
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -497,10 +497,10 @@ export default function UnifiedAuthModal({
                 style={{
                   display: 'flex', alignItems: 'center', gap: '6px',
                   background: 'none', border: 'none', cursor: 'pointer',
-                  fontSize: '11.5px', fontWeight: 600, color: 'var(--navy-soft)', padding: 0
+                  fontSize: '13.5px', fontWeight: 600, color: 'var(--navy-soft)', padding: 0
                 }}
               >
-                {showCitizenDemos ? <ChevronRight size={13} style={{ transform: 'rotate(90deg)' }} /> : <ChevronRight size={13} />}
+                {showCitizenDemos ? <ChevronRight size={14} style={{ transform: 'rotate(90deg)' }} /> : <ChevronRight size={14} />}
                 {showCitizenDemos ? 'Hide demo profiles' : 'Show demo profiles'}
               </button>
               {showCitizenDemos && (
@@ -515,14 +515,14 @@ export default function UnifiedAuthModal({
                         style={{
                           display: 'inline-flex', alignItems: 'center', gap: '5px',
                           padding: '5px 10px', borderRadius: 'var(--radius-full)',
-                          fontSize: '11.5px', fontWeight: isSelected ? 600 : 500,
+                          fontSize: '13.5px', fontWeight: isSelected ? 600 : 500,
                           background: isSelected ? 'var(--sky)' : 'var(--ice)',
                           border: isSelected ? '1px solid var(--blue)' : '1px solid var(--line)',
                           color: 'var(--navy)', cursor: 'pointer', transition: 'all 0.15s ease'
                         }}
                       >
                         <span>{demo.name}</span>
-                        <span style={{ fontSize: '10.5px', color: 'var(--navy-soft)' }}>({demo.phone.slice(-4)})</span>
+                        <span style={{ fontSize: '12.5px', color: 'var(--navy-soft)' }}>({demo.phone.slice(-4)})</span>
                       </button>
                     );
                   })}
@@ -696,10 +696,10 @@ export default function UnifiedAuthModal({
                 style={{
                   display: 'flex', alignItems: 'center', gap: '6px',
                   background: 'none', border: 'none', cursor: 'pointer',
-                  fontSize: '11.5px', fontWeight: 600, color: 'var(--navy-soft)', padding: 0
+                  fontSize: '13.5px', fontWeight: 600, color: 'var(--navy-soft)', padding: 0
                 }}
               >
-                {showOfficialDemos ? <ChevronRight size={13} style={{ transform: 'rotate(90deg)' }} /> : <ChevronRight size={13} />}
+                {showOfficialDemos ? <ChevronRight size={14} style={{ transform: 'rotate(90deg)' }} /> : <ChevronRight size={14} />}
                 {showOfficialDemos ? 'Hide demo profiles' : 'Show demo profiles'}
               </button>
               {showOfficialDemos && (
@@ -712,7 +712,7 @@ export default function UnifiedAuthModal({
                         type="button"
                         onClick={() => handleFillOfficialPreset(p)}
                         style={{
-                          textAlign: 'left', padding: '7px 9px',
+                          textAlign: 'left', padding: '8px 10px',
                           borderRadius: 'var(--radius-sm)',
                           background: isSelected ? 'var(--sky)' : 'var(--ice)',
                           border: isSelected ? '1.5px solid var(--blue)' : '1px solid var(--line)',
@@ -720,12 +720,12 @@ export default function UnifiedAuthModal({
                         }}
                       >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 700 }}>{p.tag}</span>
-                          <span style={{ fontSize: '9px', background: 'rgba(8, 26, 58, 0.1)', color: 'var(--navy)', padding: '1px 4px', borderRadius: '3px', fontWeight: 700 }}>
+                          <span style={{ fontSize: '13px', fontWeight: 700 }}>{p.tag}</span>
+                          <span style={{ fontSize: '11px', background: 'rgba(8, 26, 58, 0.1)', color: 'var(--navy)', padding: '1px 5px', borderRadius: '3px', fontWeight: 700 }}>
                             {p.level}
                           </span>
                         </div>
-                        <div style={{ fontSize: '10.5px', color: 'var(--navy-soft)', marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontSize: '12.5px', color: 'var(--navy-soft)', marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {p.name}
                         </div>
                       </button>

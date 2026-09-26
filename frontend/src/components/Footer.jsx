@@ -23,8 +23,9 @@ export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
     <footer style={{
       background: 'var(--ice)',
       borderTop: '1px solid var(--line)',
-      padding: '28px 6%',
+      padding: '28px 6% 35px',
       marginTop: 'auto',
+      marginBottom: '7px'
     }}>
       <div style={{
         maxWidth: '1200px',
@@ -48,18 +49,18 @@ export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
                 <circle cx="13" cy="13" r="4.5" fill="#1656e0" />
               </svg>
             </span>
-            <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy)', letterSpacing: '-0.01em' }}>
+            <span style={{ fontSize: '16px', fontWeight: 700, color: 'var(--navy)', letterSpacing: '-0.01em' }}>
               CivicLens
             </span>
           </div>
-          <div style={{ fontSize: '12px', color: 'var(--navy-soft)', lineHeight: 1.5, maxWidth: '200px' }}>
+          <div style={{ fontSize: '14px', color: 'var(--navy-soft)', lineHeight: 1.5, maxWidth: '240px' }}>
             Civic infrastructure intelligence for India.
           </div>
         </div>
 
         {/* ── Centre: Quick links ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--navy-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>
             Quick Links
           </div>
           <button
@@ -68,7 +69,7 @@ export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
             onClick={handleReportClick}
             style={{
               background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-              fontSize: '12.5px', color: 'var(--navy-soft)', textAlign: 'left',
+              fontSize: '14.5px', color: 'var(--navy-soft)', textAlign: 'left',
               fontFamily: 'inherit', transition: 'color 0.15s ease',
             }}
             onMouseEnter={e => e.target.style.color = 'var(--blue)'}
@@ -82,7 +83,7 @@ export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
             onClick={handleFeedClick}
             style={{
               background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-              fontSize: '12.5px', color: 'var(--navy-soft)', textAlign: 'left',
+              fontSize: '14.5px', color: 'var(--navy-soft)', textAlign: 'left',
               fontFamily: 'inherit', transition: 'color 0.15s ease',
             }}
             onMouseEnter={e => e.target.style.color = 'var(--blue)'}
@@ -94,10 +95,10 @@ export default function Footer({ setCurrentTab, onOpenReport, onSwitchFeed }) {
 
         {/* ── Right: Credits ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'flex-end', textAlign: 'right', minWidth: '200px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--navy-soft)' }}>
+          <div style={{ fontSize: '14px', color: 'var(--navy-soft)' }}>
             © {year} CivicLens
           </div>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--navy-soft)' }}>
+          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--navy-soft)' }}>
             Built by Surendra, Srinivas and Uday.
           </div>
         </div>

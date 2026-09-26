@@ -3,7 +3,7 @@ import {
   Landmark, ShieldAlert, TrendingUp, Filter, 
   Calculator, Eye, LogOut, Check,
   BarChart3, CheckCircle2, Clock, LayoutDashboard, 
-  List, MapPin, ChevronRight
+  List, MapPin
 } from 'lucide-react';
 import { 
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell
@@ -529,8 +529,13 @@ export default function OfficialsDashboard({ session, onLogout }) {
                             {h.area_type === 'rural' ? 'Rural' : 'Urban'}
                           </span>
                         </td>
-                        <td style={{ padding: '12px', fontWeight: 600 }}>
-                          {h.complaint_count} issue{h.complaint_count > 1 ? 's' : ''}
+                        <td style={{ padding: '12px' }}>
+                          <span style={{ fontWeight: 800, fontSize: '15px', color: 'var(--navy)' }}>
+                            {h.complaint_count}
+                          </span>{' '}
+                          <span style={{ fontSize: '13px', color: 'var(--navy-soft)', fontWeight: 500 }}>
+                            issue{h.complaint_count > 1 ? 's' : ''}
+                          </span>
                         </td>
                         <td style={{ padding: '12px' }}>
                           <span className={`urgency-badge ${getPriorityBadgeClass(h.priority_score)}`}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ThumbsUp, Filter, Search, MapPin,
+  ThumbsUp, Search, MapPin,
   Clock, ShieldAlert, Check, ChevronDown, ChevronUp,
   TrendingUp, Users, AlertCircle
 } from 'lucide-react';
@@ -29,8 +29,6 @@ function IssueCard({ issue, isHighlighted, isSupported, onSupport }) {
   const [expanded, setExpanded] = useState(false);
   const cats = issue.categories || (issue.category ? [issue.category] : ['roads']);
   const priorityScore = issue.priority_score ?? 50;
-
-  const priorityColor = priorityScore >= 75 ? 'var(--rose)' : priorityScore >= 40 ? 'var(--amber)' : 'var(--emerald)';
   const priorityLabel = priorityScore >= 75 ? 'High' : priorityScore >= 40 ? 'Medium' : 'Low';
 
   // Location: show locality + district, state on second line

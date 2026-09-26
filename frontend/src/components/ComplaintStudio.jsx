@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Mic, MicOff, Send, Sparkles, AlertCircle, CheckCircle2, 
-  MapPin, Globe, Gauge, Layers, FileText, ArrowRight, RefreshCw,
+  MapPin, Gauge, Layers, FileText, ArrowRight, RefreshCw,
   Languages, AlertTriangle, Plus, X, ShieldAlert, Check
 } from 'lucide-react';
 import { api } from '../services/api';
@@ -150,20 +150,22 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
     return recognition;
   };
 
+  // Initialize browser speech recognition engine on mount
   useEffect(() => {
     recognitionRef.current = initSpeechRecognition(voiceLang);
     return () => {
       if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch(e) {}
+        try { recognitionRef.current.stop(); } catch { /* noop on teardown */ }
       }
     };
-  }, []);
+  }, [voiceLang]);
 
+  // Handle runtime microphone language change
   const handleLanguageChange = (newLang) => {
     setVoiceLang(newLang);
     const wasRecording = isRecording;
     if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (e) {}
+      try { recognitionRef.current.stop(); } catch { /* noop */ }
     }
     const newRec = initSpeechRecognition(newLang);
     recognitionRef.current = newRec;
@@ -171,10 +173,11 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
       try {
         newRec.start();
         setIsRecording(true);
-      } catch (e) {}
+      } catch { /* noop */ }
     }
   };
 
+  // Toggle microphone dictation state
   const toggleRecording = () => {
     if (!speechSupported) {
       alert('Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
@@ -182,7 +185,7 @@ export default function ComplaintStudio({ session, onRequireAuth, onViewInFeed, 
     }
 
     if (isRecording) {
-      try { recognitionRef.current?.stop(); } catch(e) {}
+      try { recognitionRef.current?.stop(); } catch { /* noop */ }
       setIsRecording(false);
       setInterimText('');
     } else {

@@ -92,6 +92,7 @@ def test_urban_multi_label_roads_traffic_submission():
 
 def test_public_feed_and_support_threshold():
     """Test public feed listing and support increment."""
+    import time
     feed_res = client.get("/public/feed")
     assert feed_res.status_code == 200
     feed_data = feed_res.json()
@@ -101,8 +102,9 @@ def test_public_feed_and_support_threshold():
     target_id = feed_data["issues"][0]["id"]
     initial_supports = feed_data["issues"][0]["support_count"]
 
-    # Authenticate citizen first (support endpoint is auth-gated)
-    auth_res = client.post("/auth/verify-otp", json={"phone_number": "9876543210", "otp": "123456", "name": "Test Citizen", "email": "test@example.com"})
+    # Authenticate fresh citizen first (support endpoint is auth-gated & duplicate-checked per citizen)
+    phone = f"99{int(time.time()*1000) % 100000000:08d}"
+    auth_res = client.post("/auth/verify-otp", json={"phone_number": phone, "otp": "123456", "name": "Test Supporter", "email": "supporter@example.com"})
     assert auth_res.status_code == 200
     cit_token = auth_res.json()["token"]
 

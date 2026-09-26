@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Landmark, X, AlertCircle, LogIn, Sparkles, Shield } from 'lucide-react';
+import { Landmark, X, AlertCircle, LogIn } from 'lucide-react';
 import { api } from '../services/api';
 
 const PRESET_OFFICIALS = [
@@ -91,7 +91,7 @@ export default function OfficialLoginModal({ isOpen, onClose, onLoginSuccess }) 
 
         {/* 4-Tier Demo Presets */}
         <div style={{ marginBottom: '18px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--navy-soft)', textTransform: 'uppercase', marginBottom: '8px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--navy-soft)', textTransform: 'uppercase', marginBottom: '8px' }}>
             Select 1-Click Demo Tier Account:
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
@@ -111,10 +111,10 @@ export default function OfficialLoginModal({ isOpen, onClose, onLoginSuccess }) 
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11.5px', fontWeight: 700 }}>{p.tag}</span>
-                  <span style={{ fontSize: '9.5px', background: 'rgba(22, 86, 224, 0.1)', color: 'var(--blue)', padding: '1px 5px', borderRadius: '4px', fontWeight: 600 }}>{p.level}</span>
+                  <span style={{ fontSize: '13.5px', fontWeight: 700 }}>{p.tag}</span>
+                  <span style={{ fontSize: '11.5px', background: 'rgba(22, 86, 224, 0.1)', color: 'var(--blue)', padding: '1px 5px', borderRadius: '4px', fontWeight: 600 }}>{p.level}</span>
                 </div>
-                <div style={{ fontSize: '11px', color: 'var(--navy-soft)', marginTop: '2px' }}>{p.name}</div>
+                <div style={{ fontSize: '13px', color: 'var(--navy-soft)', marginTop: '2px' }}>{p.name}</div>
               </button>
             ))}
           </div>

@@ -47,7 +47,7 @@ body {
 /* ================= NAV ================= */
 nav.navbar {
   position: fixed;
-  top: 0;
+  top: 7px;
   left: 0;
   right: 0;
   height: 72px;
@@ -114,7 +114,7 @@ nav.navbar {
 .nav-tab-btn {
   padding: 8px 20px;
   border-radius: var(--radius-full);
-  font-size: 13.5px;
+  font-size: 15.5px;
   font-weight: 500;
   color: var(--navy-soft);
   background: transparent;
