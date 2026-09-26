@@ -1,21 +1,28 @@
 """
 Vercel Serverless Entry Point for CivicLens FastAPI Backend.
-Vercel expects a file at /api/index.py that exports the ASGI app as `app`.
+Exports FastAPI app for /api/index.
 """
 import sys
 import os
 
-api_dir = os.path.abspath(os.path.dirname(__file__))
-root_dir = os.path.abspath(os.path.join(api_dir, ".."))
-backend_dir = os.path.join(root_dir, "backend")
+current_dir = os.path.abspath(os.path.dirname(__file__))
+app_dir = os.path.join(current_dir, "_app")
 
-for p in [api_dir, root_dir, backend_dir]:
-    if p not in sys.path:
-        sys.path.insert(0, p)
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+if app_dir not in sys.path:
+    sys.path.insert(0, app_dir)
 
-try:
-    from app.main import app
-except ImportError:
-    from backend.app.main import app
+import _app as app_pkg
+sys.modules['app'] = app_pkg
+import _app.config as app_config
+sys.modules['app.config'] = app_config
+import _app.services as app_services
+sys.modules['app.services'] = app_services
+import _app.routes as app_routes
+sys.modules['app.routes'] = app_routes
 
-handler = app
+from _app.main import app as fastapi_app
+
+app = fastapi_app
+handler = fastapi_app

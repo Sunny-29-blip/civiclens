@@ -1,0 +1,741 @@
+{
+  "complaints": [
+    {
+      "id": "c-101",
+      "raw_text": "Outer Ring Road near Silk Board Junction has massive crater-like potholes causing 2-hour daily traffic jams and dangerous accidents for two-wheelers.",
+      "area_type": "urban",
+      "categories": [
+        "roads",
+        "traffic"
+      ],
+      "ai_categories": [
+        "roads",
+        "traffic"
+      ],
+      "manual_categories": [],
+      "location": "Silk Board Junction, Bengaluru, Karnataka",
+      "state": "Karnataka",
+      "district": "Bengaluru Urban",
+      "locality": "Silk Board",
+      "urgency": "high",
+      "priority_score": 90,
+      "priority_reason": "Priority: 90/100 · High urgency + immediate safety/health hazard + dual co-occurring issues + recurring daily disruption.",
+      "summary": "Severe crater potholes near Silk Board junction causing 2-hour daily traffic jams and safety risks for two-wheelers.",
+      "original_language": "English",
+      "user_id": "usr-8891",
+      "support_count": 104520,
+      "high_priority": true,
+      "timestamp": 1790183543.025516,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-102",
+      "raw_text": "Hamare Rampur gaon mein 3 hafte se transformer jala hua hai. Fasal suk rahi hai aur tube well nahi chal pa rahe.",
+      "area_type": "rural",
+      "categories": [
+        "electricity",
+        "irrigation_water"
+      ],
+      "ai_categories": [
+        "electricity",
+        "irrigation_water"
+      ],
+      "manual_categories": [],
+      "location": "Rampur Village, Varanasi, Uttar Pradesh",
+      "state": "Uttar Pradesh",
+      "district": "Varanasi",
+      "locality": "Rampur",
+      "urgency": "high",
+      "priority_score": 85,
+      "priority_reason": "Priority: 85/100 · High urgency + dual co-occurring issues + recurring daily disruption.",
+      "summary": "Burnt electricity transformer in Rampur village cutting power to tube wells and threatening crops.",
+      "original_language": "Hinglish (Hindi in Latin script)",
+      "user_id": "usr-3421",
+      "support_count": 112000,
+      "high_priority": true,
+      "timestamp": 1790269943.025524,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-103",
+      "raw_text": "Primary Health Centre in Phulparas lacks basic emergency medicines and doctors are absent on weekdays. Villagers have to travel 40km.",
+      "area_type": "rural",
+      "categories": [
+        "healthcare_access"
+      ],
+      "ai_categories": [
+        "healthcare_access"
+      ],
+      "manual_categories": [],
+      "location": "Phulparas Block, Madhubani, Bihar",
+      "state": "Bihar",
+      "district": "Madhubani",
+      "locality": "Phulparas",
+      "urgency": "high",
+      "priority_score": 70,
+      "priority_reason": "Priority: 70/100 · High urgency + immediate safety/health hazard.",
+      "summary": "Doctor shortages and absence of emergency medicine at Phulparas Primary Health Centre.",
+      "original_language": "English",
+      "user_id": "usr-1102",
+      "support_count": 48200,
+      "high_priority": false,
+      "timestamp": 1790010743.0255291,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-104",
+      "raw_text": "Severe chemical stench and black toxic effluent discharge in open drains near Okhla Phase 3 industrial area. Breathing difficulties reported.",
+      "area_type": "urban",
+      "categories": [
+        "pollution"
+      ],
+      "ai_categories": [
+        "pollution"
+      ],
+      "manual_categories": [],
+      "location": "Okhla Phase 3, New Delhi, Delhi",
+      "state": "Delhi",
+      "district": "South East Delhi",
+      "locality": "Okhla Phase 3",
+      "urgency": "high",
+      "priority_score": 75,
+      "priority_reason": "Priority: 75/100 · High urgency + immediate safety/health hazard + backed by citizen supports.",
+      "summary": "Toxic industrial discharge and foul chemical stench causing respiratory concerns in Okhla Phase 3.",
+      "original_language": "English",
+      "user_id": "usr-9903",
+      "support_count": 105800,
+      "high_priority": true,
+      "timestamp": 1790356343.025533,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-105",
+      "raw_text": "No mobile network signal in Khed taluka for past 2 months after monsoon tower damage. Online schooling and UPI payments completely stopped.",
+      "area_type": "rural",
+      "categories": [
+        "network_coverage"
+      ],
+      "ai_categories": [
+        "network_coverage"
+      ],
+      "manual_categories": [],
+      "location": "Khed Taluka, Pune, Maharashtra",
+      "state": "Maharashtra",
+      "district": "Pune",
+      "locality": "Khed",
+      "urgency": "medium",
+      "priority_score": 45,
+      "priority_reason": "Priority: 45/100 · Medium disruption + recurring daily disruption + backed by citizen supports.",
+      "summary": "Complete loss of telecom and internet connectivity in Khed taluka due to damaged cellular tower.",
+      "original_language": "English",
+      "user_id": "usr-4412",
+      "support_count": 31400,
+      "high_priority": false,
+      "timestamp": 1789924343.025538,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-106",
+      "raw_text": "Municipal tap water in Ward 14 has had zero supply for 5 days. Water tankers are charging exorbitant rates.",
+      "area_type": "urban",
+      "categories": [
+        "water_shortage"
+      ],
+      "ai_categories": [
+        "water_shortage"
+      ],
+      "manual_categories": [],
+      "location": "Ward 14, Mansarovar, Jaipur, Rajasthan",
+      "state": "Rajasthan",
+      "district": "Jaipur",
+      "locality": "Mansarovar",
+      "urgency": "high",
+      "priority_score": 55,
+      "priority_reason": "Priority: 55/100 · High urgency + backed by citizen supports.",
+      "summary": "Complete municipal drinking water stoppage for 5 days in Mansarovar Ward 14.",
+      "original_language": "English",
+      "user_id": "usr-7761",
+      "support_count": 89400,
+      "high_priority": false,
+      "timestamp": 1790377943.0255418,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-107",
+      "raw_text": "Feeder canal irrigation gate broken at canal KM 14. Water flooding adjacent wheat fields instead of reaching tail-end farmers.",
+      "area_type": "rural",
+      "categories": [
+        "irrigation_water"
+      ],
+      "ai_categories": [
+        "irrigation_water"
+      ],
+      "manual_categories": [],
+      "location": "Bikramganj, Rohtas, Bihar",
+      "state": "Bihar",
+      "district": "Rohtas",
+      "locality": "Bikramganj",
+      "urgency": "high",
+      "priority_score": 60,
+      "priority_reason": "Priority: 60/100 · High urgency + backed by citizen supports.",
+      "summary": "Damaged canal regulator gate causing field inundation and water deprivation for downstream farmers.",
+      "original_language": "English",
+      "user_id": "usr-5520",
+      "support_count": 12500,
+      "high_priority": false,
+      "timestamp": 1790399543.025546,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-108",
+      "raw_text": "Traffic signal defunct at Rajeev Chowk intersection for over a week causing daily gridlock during peak morning hours.",
+      "area_type": "urban",
+      "categories": [
+        "traffic",
+        "roads"
+      ],
+      "ai_categories": [
+        "traffic",
+        "roads"
+      ],
+      "manual_categories": [],
+      "location": "Rajeev Chowk, Gurugram, Haryana",
+      "state": "Haryana",
+      "district": "Gurugram",
+      "locality": "Rajeev Chowk",
+      "urgency": "medium",
+      "priority_score": 55,
+      "priority_reason": "Priority: 55/100 · Medium disruption + dual co-occurring issues + recurring daily disruption + backed by citizen supports.",
+      "summary": "Defunct traffic lights at busy Rajeev Chowk junction resulting in daily gridlocks.",
+      "original_language": "English",
+      "user_id": "usr-2281",
+      "support_count": 14200,
+      "high_priority": false,
+      "timestamp": 1790298743.0255501,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-109",
+      "raw_text": "Severe water logging and blocked drainage near Dal Lake Boulevard road following snowfall and rain. Freezing slush creating severe hazard for morning commuters.",
+      "area_type": "urban",
+      "categories": [
+        "drainage",
+        "roads"
+      ],
+      "ai_categories": [
+        "drainage",
+        "roads"
+      ],
+      "manual_categories": [],
+      "location": "Boulevard Road, Srinagar, Jammu & Kashmir",
+      "state": "Jammu & Kashmir",
+      "district": "Srinagar",
+      "locality": "Boulevard Road",
+      "urgency": "high",
+      "priority_score": 88,
+      "priority_reason": "Priority: 88/100 · High urgency + safety hazard + multi-category issue.",
+      "summary": "Freezing slush and drainage blockage on Boulevard Road along Dal Lake.",
+      "original_language": "English",
+      "user_id": "usr-6101",
+      "support_count": 42100,
+      "high_priority": true,
+      "timestamp": 1790370743.0255628,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-110",
+      "raw_text": "Streetlights non-functional across 2 km stretch on Janpath road from Master Canteen to Vani Vihar. Multiple chain-snatching incidents reported at night.",
+      "area_type": "urban",
+      "categories": [
+        "electricity",
+        "public_safety"
+      ],
+      "ai_categories": [
+        "electricity",
+        "public_safety"
+      ],
+      "manual_categories": [],
+      "location": "Janpath, Bhubaneswar, Odisha",
+      "state": "Odisha",
+      "district": "Khordha",
+      "locality": "Janpath",
+      "urgency": "high",
+      "priority_score": 82,
+      "priority_reason": "Priority: 82/100 · High urgency + public safety risk.",
+      "summary": "2km dark stretch due to broken street lighting on Janpath.",
+      "original_language": "English",
+      "user_id": "usr-6102",
+      "support_count": 31500,
+      "high_priority": true,
+      "timestamp": 1790385143.025567,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-111",
+      "raw_text": "Landslide debris blocking Mussoorie-Dehradun bypass road near Rajpur. Only one lane open causing 4-hour tourist and local traffic jams.",
+      "area_type": "rural",
+      "categories": [
+        "roads",
+        "traffic"
+      ],
+      "ai_categories": [
+        "roads",
+        "traffic"
+      ],
+      "manual_categories": [],
+      "location": "Rajpur Bypass, Dehradun, Uttarakhand",
+      "state": "Uttarakhand",
+      "district": "Dehradun",
+      "locality": "Rajpur",
+      "urgency": "high",
+      "priority_score": 85,
+      "priority_reason": "Priority: 85/100 · Landslide hazard + arterial bypass obstruction.",
+      "summary": "Landslide debris obstructing Rajpur bypass on Mussoorie-Dehradun route.",
+      "original_language": "English",
+      "user_id": "usr-6103",
+      "support_count": 56000,
+      "high_priority": true,
+      "timestamp": 1790392343.025571,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-112",
+      "raw_text": "Perambur railway subway flooded with 3 feet sewage-mixed stormwater after overnight heavy rains. Bus routes completely diverted.",
+      "area_type": "urban",
+      "categories": [
+        "drainage",
+        "transport"
+      ],
+      "ai_categories": [
+        "drainage",
+        "transport"
+      ],
+      "manual_categories": [],
+      "location": "Perambur Subway, Chennai, Tamil Nadu",
+      "state": "Tamil Nadu",
+      "district": "Chennai",
+      "locality": "Perambur",
+      "urgency": "high",
+      "priority_score": 87,
+      "priority_reason": "Priority: 87/100 · Critical subway inundation disabling urban transit.",
+      "summary": "Subway inundation with stormwater disrupting North Chennai transit.",
+      "original_language": "English",
+      "user_id": "usr-6104",
+      "support_count": 78900,
+      "high_priority": true,
+      "timestamp": 1790406743.025575,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-113",
+      "raw_text": "Pipeline burst near SG Highway Sarkhej junction. Hundreds of kilolitres of potable water wasted while surrounding societies have no supply.",
+      "area_type": "urban",
+      "categories": [
+        "water_shortage"
+      ],
+      "ai_categories": [
+        "water_shortage"
+      ],
+      "manual_categories": [],
+      "location": "Sarkhej, Ahmedabad, Gujarat",
+      "state": "Gujarat",
+      "district": "Ahmedabad",
+      "locality": "Sarkhej",
+      "urgency": "medium",
+      "priority_score": 64,
+      "priority_reason": "Priority: 64/100 · Major drinking water pipeline rupture.",
+      "summary": "Water main burst at SG Highway Sarkhej junction wasting municipal supply.",
+      "original_language": "English",
+      "user_id": "usr-6105",
+      "support_count": 34100,
+      "high_priority": false,
+      "timestamp": 1790363543.025579,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-114",
+      "raw_text": "Potholes along Gachibowli to Financial District main corridor causing dangerous swerving for tech corridor IT bus commuters.",
+      "area_type": "urban",
+      "categories": [
+        "roads"
+      ],
+      "ai_categories": [
+        "roads"
+      ],
+      "manual_categories": [],
+      "location": "Gachibowli, Hyderabad, Telangana",
+      "state": "Telangana",
+      "district": "Hyderabad",
+      "locality": "Gachibowli",
+      "urgency": "medium",
+      "priority_score": 68,
+      "priority_reason": "Priority: 68/100 · Major arterial potholes in high density corridor.",
+      "summary": "Gachibowli to Financial District road deterioration.",
+      "original_language": "English",
+      "user_id": "usr-6106",
+      "support_count": 45200,
+      "high_priority": false,
+      "timestamp": 1790349143.025583,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-115",
+      "raw_text": "Solid waste and plastic dumping along MG Road promenade in White Town causing foul odor and blocking stormwater drains.",
+      "area_type": "urban",
+      "categories": [
+        "sanitation",
+        "pollution"
+      ],
+      "ai_categories": [
+        "sanitation",
+        "pollution"
+      ],
+      "manual_categories": [],
+      "location": "White Town, Puducherry",
+      "state": "Puducherry",
+      "district": "Puducherry",
+      "locality": "White Town",
+      "urgency": "medium",
+      "priority_score": 58,
+      "priority_reason": "Priority: 58/100 · Sanitation and drain blockage in tourist heritage zone.",
+      "summary": "Uncollected garbage and drain dumping in White Town heritage zone.",
+      "original_language": "English",
+      "user_id": "usr-6107",
+      "support_count": 18200,
+      "high_priority": false,
+      "timestamp": 1790334743.0255868,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-116",
+      "raw_text": "Severe silt accumulation in Brahmaputra embankment canal near Jalukbari causing overflow during high tide.",
+      "area_type": "rural",
+      "categories": [
+        "drainage",
+        "irrigation_water"
+      ],
+      "ai_categories": [
+        "drainage",
+        "irrigation_water"
+      ],
+      "manual_categories": [],
+      "location": "Jalukbari, Guwahati, Assam",
+      "state": "Assam",
+      "district": "Kamrup Metropolitan",
+      "locality": "Jalukbari",
+      "urgency": "high",
+      "priority_score": 76,
+      "priority_reason": "Priority: 76/100 · Embankment canal silting threatening low-lying neighborhoods.",
+      "summary": "Canal siltation causing overflow near Jalukbari.",
+      "original_language": "English",
+      "user_id": "usr-6108",
+      "support_count": 29800,
+      "high_priority": false,
+      "timestamp": 1790377943.02559,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-117",
+      "raw_text": "Underground sewage line rupture near Park Circus 7-point crossing leading to contaminated drinking water reports in 3 wards.",
+      "area_type": "urban",
+      "categories": [
+        "sanitation",
+        "water_shortage"
+      ],
+      "ai_categories": [
+        "sanitation",
+        "water_shortage"
+      ],
+      "manual_categories": [],
+      "location": "Park Circus, Kolkata, West Bengal",
+      "state": "West Bengal",
+      "district": "Kolkata",
+      "locality": "Park Circus",
+      "urgency": "high",
+      "priority_score": 92,
+      "priority_reason": "Priority: 92/100 · Sewage pipe cross-contamination into water network.",
+      "summary": "Sewage pipe fracture contaminating drinking water in Park Circus.",
+      "original_language": "English",
+      "user_id": "usr-6109",
+      "support_count": 91200,
+      "high_priority": true,
+      "timestamp": 1790413943.025595,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-118",
+      "raw_text": "Kochi metro pillar drainage downspouts leaking directly onto MG Road traffic lanes creating dangerous hydroplaning zones.",
+      "area_type": "urban",
+      "categories": [
+        "roads",
+        "traffic"
+      ],
+      "ai_categories": [
+        "roads",
+        "traffic"
+      ],
+      "manual_categories": [],
+      "location": "MG Road, Kochi, Kerala",
+      "state": "Kerala",
+      "district": "Ernakulam",
+      "locality": "MG Road",
+      "urgency": "medium",
+      "priority_score": 62,
+      "priority_reason": "Priority: 62/100 · Road drainage defect creating skidding hazard.",
+      "summary": "Leaking metro pillar downspouts on MG Road Kochi.",
+      "original_language": "English",
+      "user_id": "usr-6110",
+      "support_count": 22400,
+      "high_priority": false,
+      "timestamp": 1790327543.025599,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-119",
+      "raw_text": "Industrial effluent discharge in Upper Lake catchment area near Bairagarh threatening municipal water intake reservoir.",
+      "area_type": "urban",
+      "categories": [
+        "pollution",
+        "water_shortage"
+      ],
+      "ai_categories": [
+        "pollution",
+        "water_shortage"
+      ],
+      "manual_categories": [],
+      "location": "Bairagarh, Bhopal, Madhya Pradesh",
+      "state": "Madhya Pradesh",
+      "district": "Bhopal",
+      "locality": "Bairagarh",
+      "urgency": "high",
+      "priority_score": 86,
+      "priority_reason": "Priority: 86/100 · Contamination threat to city drinking water source.",
+      "summary": "Effluent pollution near Upper Lake drinking water reservoir intake.",
+      "original_language": "English",
+      "user_id": "usr-6111",
+      "support_count": 67300,
+      "high_priority": true,
+      "timestamp": 1790388743.0256069,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-120",
+      "raw_text": "Heavy commercial vehicles causing structural damage and massive noise pollution on GT Road bypass in Ludhiana.",
+      "area_type": "urban",
+      "categories": [
+        "roads",
+        "pollution"
+      ],
+      "ai_categories": [
+        "roads",
+        "pollution"
+      ],
+      "manual_categories": [],
+      "location": "GT Road Bypass, Ludhiana, Punjab",
+      "state": "Punjab",
+      "district": "Ludhiana",
+      "locality": "GT Road Bypass",
+      "urgency": "medium",
+      "priority_score": 59,
+      "priority_reason": "Priority: 59/100 · Road surface wear and noise disruption.",
+      "summary": "Heavy transit road damage on Ludhiana GT Road bypass.",
+      "original_language": "English",
+      "user_id": "usr-6112",
+      "support_count": 25100,
+      "high_priority": false,
+      "timestamp": 1790341943.025611,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-121",
+      "raw_text": "Beach road streetlights and beachside surveillance cameras broken along RK Beach promenade from Submarine Museum to Kali Temple.",
+      "area_type": "urban",
+      "categories": [
+        "electricity",
+        "public_safety"
+      ],
+      "ai_categories": [
+        "electricity",
+        "public_safety"
+      ],
+      "manual_categories": [],
+      "location": "RK Beach, Visakhapatnam, Andhra Pradesh",
+      "state": "Andhra Pradesh",
+      "district": "Visakhapatnam",
+      "locality": "RK Beach",
+      "urgency": "medium",
+      "priority_score": 60,
+      "priority_reason": "Priority: 60/100 · Darkness on popular coastal public promenade.",
+      "summary": "Non-functional lights along RK Beach promenade in Visakhapatnam.",
+      "original_language": "English",
+      "user_id": "usr-6113",
+      "support_count": 31000,
+      "high_priority": false,
+      "timestamp": 1790356343.0256152,
+      "status": "pending",
+      "classified_by": "gemini"
+    },
+    {
+      "id": "c-122",
+      "raw_text": "Solar microgrid battery unit damaged due to extreme sub-zero temperatures near Chang La pass route in Leh district, causing power outage across 4 villages.",
+      "area_type": "rural",
+      "categories": [
+        "electricity"
+      ],
+      "ai_categories": [
+        "electricity"
+      ],
+      "manual_categories": [],
+      "location": "Chang La Route, Leh, Ladakh",
+      "state": "Ladakh",
+      "district": "Leh",
+      "locality": "Chang La",
+      "urgency": "high",
+      "priority_score": 84,
+      "priority_reason": "Priority: 84/100 · Critical winter energy failure in remote high-altitude rural valley.",
+      "summary": "Sub-zero solar microgrid battery failure cutting power to 4 Leh villages.",
+      "original_language": "English",
+      "user_id": "usr-6114",
+      "support_count": 19400,
+      "high_priority": true,
+      "timestamp": 1790377943.025619,
+      "status": "in_progress",
+      "classified_by": "gemini"
+    }
+  ],
+  "officials": [
+    {
+      "official_id": "admin",
+      "name": "Dr. Rajeshwar Rao, IAS",
+      "department": "National Infrastructure & Governance Mission",
+      "level": "national",
+      "jurisdiction": {
+        "state": null,
+        "district": null,
+        "locality": null
+      },
+      "state": "All States",
+      "district": "All Districts",
+      "password_hash": "$2b$12$6w6r9sYw0sbB9DdBMATMMuug04prDtxTL7wQl8I6eJBzL5O2Nwt72"
+    },
+    {
+      "official_id": "state_up",
+      "name": "Anil Kumar Srivastava",
+      "department": "UP Jal Nigam & Rural Infrastructure",
+      "level": "state",
+      "jurisdiction": {
+        "state": "Uttar Pradesh",
+        "district": null,
+        "locality": null
+      },
+      "state": "Uttar Pradesh",
+      "district": "All Districts",
+      "password_hash": "$2b$12$YY3OIY0M5AbkKI7A2JMUXup5RXGf3L9SSSXUFWnr6fxctd1binori"
+    },
+    {
+      "official_id": "up_jal",
+      "name": "Anil Kumar Srivastava",
+      "department": "UP Jal Nigam & Rural Infrastructure",
+      "level": "state",
+      "jurisdiction": {
+        "state": "Uttar Pradesh",
+        "district": null,
+        "locality": null
+      },
+      "state": "Uttar Pradesh",
+      "district": "All Districts",
+      "password_hash": "$2b$12$sVWVZrplHOQHTALDVvUNh.T9k.uja0S1IWsMWOv244xMYL3y2KOSa"
+    },
+    {
+      "official_id": "delhi_pwd",
+      "name": "Sunita Verma, Chief Engineer",
+      "department": "Delhi Public Works Department (PWD)",
+      "level": "state",
+      "jurisdiction": {
+        "state": "Delhi",
+        "district": null,
+        "locality": null
+      },
+      "state": "Delhi",
+      "district": "All Districts",
+      "password_hash": "$2b$12$os9fzvQCL2sSn6ama.cwNurNtPfPs3m/2ga2qLjXFJxuVydfZyS4i"
+    },
+    {
+      "official_id": "dm_varanasi",
+      "name": "K. S. Sharma, District Magistrate",
+      "department": "District Administration, Varanasi",
+      "level": "district",
+      "jurisdiction": {
+        "state": "Uttar Pradesh",
+        "district": "Varanasi",
+        "locality": null
+      },
+      "state": "Uttar Pradesh",
+      "district": "Varanasi",
+      "password_hash": "$2b$12$zDNOiP6yRi0Dn.u8royKhePWcmUygxKgzuss3xy9yZMb208w.29V2"
+    },
+    {
+      "official_id": "bbmp_bangalore",
+      "name": "Kavitha Reddy, Commissioner",
+      "department": "BBMP Urban Infrastructure & Traffic",
+      "level": "district",
+      "jurisdiction": {
+        "state": "Karnataka",
+        "district": "Bengaluru Urban",
+        "locality": null
+      },
+      "state": "Karnataka",
+      "district": "Bengaluru Urban",
+      "password_hash": "$2b$12$fQ0eKTSKEtuRFiLakdYl.uXpmDCVaypKURLGZmsu.vv5.CJhO5AGK"
+    },
+    {
+      "official_id": "local_rampur",
+      "name": "Rameshwar Yadav, Gram Panchayat Adhikari",
+      "department": "Rampur Village Development Office",
+      "level": "local",
+      "jurisdiction": {
+        "state": "Uttar Pradesh",
+        "district": "Varanasi",
+        "locality": "Rampur"
+      },
+      "state": "Uttar Pradesh",
+      "district": "Varanasi",
+      "password_hash": "$2b$12$f2cAj.0/wC7pYLfoj7jd6uNjxVHuiQ90BxkR5nya/ptu1YGEPPY6O"
+    },
+    {
+      "official_id": "bihar_power",
+      "name": "Manoj Paswan, Executive Engineer",
+      "department": "Bihar State Power Distribution Co.",
+      "level": "district",
+      "jurisdiction": {
+        "state": "Bihar",
+        "district": "Madhubani",
+        "locality": null
+      },
+      "state": "Bihar",
+      "district": "Madhubani",
+      "password_hash": "$2b$12$IuJXVRIH0lweL5UPwDqGX.wTWtX/DiMhhVTC8a7LB3rczNBfC6aCu"
+    }
+  ],
+  "otps": {}
+}
