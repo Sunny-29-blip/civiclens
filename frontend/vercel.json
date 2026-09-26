@@ -1,0 +1,18 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)",       "destination": "/api/index.py" },
+    { "source": "/api",            "destination": "/api/index.py" },
+    { "source": "/auth/(.*)",       "destination": "/api/index.py" },
+    { "source": "/auth",            "destination": "/api/index.py" },
+    { "source": "/requests/(.*)",   "destination": "/api/index.py" },
+    { "source": "/requests",        "destination": "/api/index.py" },
+    { "source": "/public/(.*)",     "destination": "/api/index.py" },
+    { "source": "/public",          "destination": "/api/index.py" },
+    { "source": "/officials/(.*)",  "destination": "/api/index.py" },
+    { "source": "/officials",       "destination": "/api/index.py" },
+    { "source": "/docs",            "destination": "/api/index.py" },
+    { "source": "/redoc",           "destination": "/api/index.py" },
+    { "source": "/openapi.json",    "destination": "/api/index.py" },
+    { "source": "/((?!api|auth|requests|public|officials|docs|redoc|openapi.json|assets|favicon.ico).*)", "destination": "/index.html" }
+  ]
+}
