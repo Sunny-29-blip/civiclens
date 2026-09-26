@@ -96,6 +96,8 @@ app.include_router(officials.router)
 
 
 @app.get("/api/health", tags=["Health"])
+@app.get("/health", tags=["Health"])
+@app.get("/api", tags=["Health"])
 async def health_check():
     runtime_gemini = get_gemini_runtime_status()
     merged_gemini = {**gemini_status, **runtime_gemini}

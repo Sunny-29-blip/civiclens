@@ -17,3 +17,5 @@ try:
 except ImportError:
     from app.main import app
 
+handler = app
+
