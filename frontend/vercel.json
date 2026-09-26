@@ -8,16 +8,12 @@
     { "source": "/api/(.*)",       "destination": "/api/index" },
     { "source": "/api",            "destination": "/api/index" },
     { "source": "/auth/(.*)",       "destination": "/api/index" },
-    { "source": "/auth",            "destination": "/api/index" },
     { "source": "/requests/(.*)",   "destination": "/api/index" },
-    { "source": "/requests",        "destination": "/api/index" },
     { "source": "/public/(.*)",     "destination": "/api/index" },
-    { "source": "/public",          "destination": "/api/index" },
     { "source": "/officials/(.*)",  "destination": "/api/index" },
-    { "source": "/officials",       "destination": "/api/index" },
     { "source": "/docs",            "destination": "/api/index" },
     { "source": "/redoc",           "destination": "/api/index" },
     { "source": "/openapi.json",    "destination": "/api/index" },
-    { "source": "/((?!api|auth|requests|public|officials|docs|redoc|openapi.json|assets|favicon.ico).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|auth/|requests/|public/|officials/|docs|redoc|openapi.json|assets/|favicon.ico).*)", "destination": "/index.html" }
   ]
 }
