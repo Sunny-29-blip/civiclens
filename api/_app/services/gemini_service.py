@@ -587,13 +587,13 @@ async def classify_complaint_with_gemini(
         return _heuristic_classify(text, state_hint=state_hint, district_hint=district_hint)
 
     try:
-        # Attempt classification via candidate Gemini models
+        # Attempt classification via candidate active Gemini models
         candidate_models = [
-            settings.GEMINI_MODEL or "gemini-3.6-flash",
-            "gemini-2.5-flash",
-            "gemini-1.5-flash",
-            "gemini-1.5-pro",
-            "gemini-pro"
+            "gemini-3.8-flash",
+            "gemini-3.7-flash",
+            "gemini-3.5-flash",
+            settings.GEMINI_MODEL or "gemini-3.8-flash",
+            "gemini-flash-latest"
         ]
         
         parsed_dict = None
