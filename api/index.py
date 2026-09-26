@@ -5,8 +5,15 @@ Vercel expects a file at /api/index.py that exports the ASGI app as `app`.
 import sys
 import os
 
-# Add the project root and backend to the Python path so imports work
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+backend_dir = os.path.join(root_dir, "backend")
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
 
-from backend.app.main import app
+try:
+    from backend.app.main import app
+except ImportError:
+    from app.main import app
+

@@ -11,6 +11,7 @@
     { "source": "/officials/:path*",  "destination": "/api/index" },
     { "source": "/docs",              "destination": "/api/index" },
     { "source": "/redoc",             "destination": "/api/index" },
-    { "source": "/openapi.json",      "destination": "/api/index" }
+    { "source": "/openapi.json",      "destination": "/api/index" },
+    { "source": "/(.*)",              "destination": "/index.html" }
   ]
 }

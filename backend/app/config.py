@@ -12,6 +12,7 @@ class Settings:
     # Firebase / Google Cloud Firestore Configuration (Part C: jansetu-d2106)
     FIREBASE_PROJECT_ID: str = os.getenv("FIREBASE_PROJECT_ID", "jansetu-d2106")
     FIREBASE_CREDENTIALS_PATH: str = os.getenv("FIREBASE_CREDENTIALS_PATH", "")
+    FIREBASE_SERVICE_ACCOUNT_JSON: str = os.getenv("FIREBASE_SERVICE_ACCOUNT_JSON", "")
 
     # Server Configuration
     HOST: str = os.getenv("HOST", "0.0.0.0")

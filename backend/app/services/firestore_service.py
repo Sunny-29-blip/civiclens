@@ -680,16 +680,34 @@ class FirestoreService:
 
     def _init_storage(self):
         """Try initializing Google Cloud Firestore / Firebase Admin SDK, or fallback to local persistence."""
+        project_id = settings.FIREBASE_PROJECT_ID or "jansetu-d2106"
+        service_account_json = settings.FIREBASE_SERVICE_ACCOUNT_JSON or os.getenv("FIREBASE_SERVICE_ACCOUNT_JSON", "")
         creds_path = settings.FIREBASE_CREDENTIALS_PATH
         if creds_path and not os.path.exists(creds_path):
             backend_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
             alt_path = os.path.join(backend_dir, creds_path.lstrip("./"))
             if os.path.exists(alt_path):
                 creds_path = alt_path
-        project_id = settings.FIREBASE_PROJECT_ID or "jansetu-d2106"
 
         try:
-            if creds_path and os.path.exists(creds_path):
+            # 1. First priority: Raw JSON string from Secret Manager / environment variable
+            if service_account_json and service_account_json.strip():
+                import firebase_admin
+                from firebase_admin import credentials, firestore
+                parsed_cert = json.loads(service_account_json)
+                cred = credentials.Certificate(parsed_cert)
+                try:
+                    firebase_admin.initialize_app(cred, {"projectId": project_id})
+                except ValueError:
+                    pass
+                self.db = firestore.client()
+                self.use_cloud_firestore = True
+                self.storage_reason = f"Connected to Google Cloud Firestore via Secret Manager JSON (Project: {project_id})"
+                logger.info(f"✅ Real Google Cloud Firestore connected via Secret Manager JSON (Project ID: {project_id})")
+                return
+
+            # 2. Second priority: Local service account file path
+            elif creds_path and os.path.exists(creds_path):
                 import firebase_admin
                 from firebase_admin import credentials, firestore
                 cred = credentials.Certificate(creds_path)
@@ -702,6 +720,8 @@ class FirestoreService:
                 self.storage_reason = f"Connected to Google Cloud Firestore (Project: {project_id})"
                 logger.info(f"✅ Real Google Cloud Firestore connected (Project ID: {project_id})")
                 return
+
+            # 3. Third priority: Application Default Credentials (ADC)
             elif os.getenv("GOOGLE_APPLICATION_CREDENTIALS") and os.path.exists(os.getenv("GOOGLE_APPLICATION_CREDENTIALS")):
                 import firebase_admin
                 from firebase_admin import firestore
