@@ -2,6 +2,13 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/*.py": {
+      "includeFiles": "backend/**",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)",          "destination": "/api/index.py" },
     { "source": "/api",               "destination": "/api/index.py" },
