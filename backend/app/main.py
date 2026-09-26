@@ -88,11 +88,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include API Routers
+# Include API Routers (both direct and /api prefixed)
 app.include_router(auth.router)
 app.include_router(complaints.router)
 app.include_router(public.router)
 app.include_router(officials.router)
+
+app.include_router(auth.router, prefix="/api")
+app.include_router(complaints.router, prefix="/api")
+app.include_router(public.router, prefix="/api")
+app.include_router(officials.router, prefix="/api")
 
 
 @app.get("/api/health", tags=["Health"])
